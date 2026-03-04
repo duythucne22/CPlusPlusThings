@@ -38,25 +38,18 @@
 
 # Stories About C++
 
-
 Thanks for your support of *Stories About C++*! We’ve now synchronized the content to Bilibili as video episodes, so you can also learn by watching while still reading this online. Please feel free to star, share, and submit PRs.
-
 
 Online personal blog: [Guangcheng’s Lab](https://light-city.github.io/)
 
-
 Online learning site: [Stories About C++](https://light-city.github.io/stories_things/)
-
 
 - Chinese name: **C++ 那些事**
 - English name: **Stories About C Plus Plus**
 
-
 This is a repository suitable for beginners going from **getting started to advanced**, solving the problems that **interviewees and learners** have about how to **dive into C++** and how to **fall in love with C++**. In addition, the repository extends into deeper topics such as source‑code analysis and multithreaded concurrency, making it a fairly comprehensive C++ learning repository that carries you from beginner to advanced level.
 
-
 ### Major Projects
-
 
 A series of major projects have been launched to help everyone learn C++ through hands‑on practice. Combined with this open‑source project, progress can be very rapid.
 

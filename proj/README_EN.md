@@ -86,7 +86,6 @@ This project covers the following C++ concepts (RAII, semaphores, `lock_guard`, 
 
 ## Seven Ways to Master condition_variable
 
-
 [https://mp.weixin.qq.com/s/33ZXOA-tzhbBKMFWS26kCw](https://mp.weixin.qq.com/s/33ZXOA-tzhbBKMFWS26kCw)
 
 
@@ -124,7 +123,6 @@ This project covers the following C++ concepts (RAII, semaphores, `lock_guard`, 
 
 ### Topics Covered
 
-
 1. **Multi‑threading and concurrent programming**: By studying these versions, you will learn how to use multi‑threading and concurrency in C++ to handle parallel tasks. You will learn how to create threads, control thread execution, and share and synchronize data among threads.
 
 2. **Synchronization mechanisms**: These versions introduce different synchronization mechanisms, including polling, wait‑and‑notify, and callbacks. You will learn how to use mutexes, condition variables, and semaphores to achieve thread synchronization and coordination.
@@ -135,14 +133,11 @@ This project covers the following C++ concepts (RAII, semaphores, `lock_guard`, 
 
 5. **`condition_variable`, `mutex`, `unique_lock`**
 
-
 ## DuckDB + LevelDB
-
 
 LevelDB source‑code analysis is complete.
 
 DuckDB content is being continuously updated.
-
 
 ## C++那些事 Ten‑Day Intensive Practice (Upgraded Version)
 
