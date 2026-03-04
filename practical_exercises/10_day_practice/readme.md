@@ -1,41 +1,41 @@
-# 10日c++实战狂练
+# 10‑Day C++ Practical Intensive Practice
 
-- [x] [day1](day1)
+- [x] [Day 1](day1)
 
-基本c++语法
+Basic C++ syntax
 
-- [x] [day2](day2)
+- [x] [Day 2](day2)
 
-递归、结构体、枚举、静态变量等
+Recursion, structs, enums, static variables, etc.
 
-- [x] [day3](day3)
+- [x] [Day 3](day3)
 
-函数
+Functions
 
-- [x] [day4](day4)
+- [x] [Day 4](day4)
 
-函数深入
+Deep dive into functions
 
-- [x] [day5](day5)
+- [x] [Day 5](day5)
 
-继承多态
+Inheritance and polymorphism
 
-- [x] [day6](day6)
+- [x] [Day 6](day6)
 
-虚函数、抽象类
+Virtual functions and abstract classes
 
-- [x] [day7](day7)
+- [x] [Day 7](day7)
 
-运算符重载
+Operator overloading
 
-- [x] [day8](day8)
+- [x] [Day 8](day8)
 
-模板与STL
+Templates and STL
 
-- [x] [day9](day9)
+- [x] [Day 9](day9)
 
-异常
+Exceptions
 
-- [x] [day10](day10)
+- [x] [Day 10](day10)
 
-文件与流
+Files and streams

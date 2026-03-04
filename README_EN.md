@@ -1,147 +1,308 @@
-# Stories About C Plus Plus
+- [Stories About C++](#stories-about-c)
+    - [Major Projects](#major-projects)
+    - [About the Author](#about-the-author)
+    - [Running the Project](#running-the-project)
+      - [Method 1: vscode + bazel](#method-1-vscode--bazel)
+      - [Method 2: docker](#method-2-docker)
+      - [Method 3: g++](#method-3-g)
+    - [Video‑based Learning](#videobased-learning)
+    - [Lark Knowledge Base](#lark-knowledge-base)
+    - [Basics and Beyond](#basics-and-beyond)
+    - [Hands‑on Series](#handson-series)
+      - [10‑Day Intensive Practice](#10day-intensive-practice)
+      - [Key Hands‑on Exercises](#key-handson-exercises)
+    - [C++2.0 New Features](#c20-new-features)
+      - [Overview](#overview)
+      - [C++11 New Features](#c11-new-features)
+      - [C++14/17/20](#c141720)
+    - [Design Patterns](#design-patterns)
+    - [STL Source Code Analysis](#stl-source-code-analysis)
+    - [Concurrency Programming](#concurrency-programming)
+      - [C++ Concurrency in Action](#c-concurrency-in-action)
+      - [Multithreading and Multiprocessing](#multithreading-and-multiprocessing)
+        - [Threading In C++](#threading-in-c)
+    - [C++ Idioms](#c-idioms)
+        - [What are your favorite C++ programming style idioms?](#what-are-your-favorite-c-programming-style-idioms)
+    - [Learning Courses](#learning-courses)
+      - [Geek Time: 30 Practical Lectures on Modern C++](#geek-time-30-practical-lectures-on-modern-c)
+    - [Tools](#tools)
+      - [Container Quick Output Utility](#container-quick-output-utility)
+      - [Simple Python‑style Output (Jupyter Notebook)](#simple-pythonstyle-output-jupyter-notebook)
+      - [Inspecting Compilation‑Process Changes](#inspecting-compilationprocess-changes)
+      - [C++ Debug Macro: dbg‑macro](#c-debug-macro-dbgmacro)
+      - [Debug Tool rr on Linux – “Time‑Travel” Capability](#debug-tool-rr-on-linux--timetravel-capability)
+    - [Extensions](#extensions)
+      - [Some Common Questions](#some-common-questions)
+    - [Contributors](#contributors)
 
-Thanks for all the support about << Stories About C ++ >>~~, right now you could open this link(https://light-city.club/sc/) to read this article.~~
-Any star, retweet or pr will be welcomed.
 
-**Notice: The website is not available now.**
+# Stories About C++
 
 
------------------------
+Thanks for your support of *Stories About C++*! We’ve now synchronized the content to Bilibili as video episodes, so you can also learn by watching while still reading this online. Please feel free to star, share, and submit PRs.
 
 
-### 0. Directory
+Online personal blog: [Guangcheng’s Lab](https://light-city.github.io/)
 
-- Chinese version：**C++ 那些事**
-- English version：**Stories About C Plus Plus**
 
-This repository meets the need of people who wants to really know about C++, and may help you in the interview. Besides, it also provides
-other details,such as in-depth source code analysis and multi-threaded concurrency. It is a comprehensive C ++ repository from entry to advanced improvement
+Online learning site: [Stories About C++](https://light-city.github.io/stories_things/)
 
-### 1.Foundation
 
-- [Stories About const](./basic_content/const)
-- [Stories About static](./basic_content/static)
-- [Stories about this](./basic_content/this)
-- [Stories About inline](./basic_content/inline)
-- [Stories About sizeof](./basic_content/sizeof)
-- [Stories About pointer of function](./basic_content/func_pointer)
-- [Stories About pure virtual function and abstract](./basic_content/abstract)
-- [Stories About vptr_vtable](./basic_content/vptr_vtable)
-- [Stories About virtual](./basic_content/virtual)
-- [Stories About volatile](./basic_content/volatile)
-- [Stories About assert](./basic_content/assert)
-- [Stories About bit](./basic_content/bit)
-- [Stories About extern](./basic_content/extern)
-- [Stories About struct](./basic_content/struct)
-- [Stories About struct and class](./basic_content/struct_class)
-- [Stories About union](./basic_content/union)
-- [Stories About polymorphism](./basic_content/c_poly)
-- [Stories About explicit](./basic_content/explicit)
-- [Stories About friend](./basic_content/friend)
-- [Stories About using](./basic_content/using)
-- [Stories About :: ](./basic_content/maohao)
-- [Stories About enum](./basic_content/enum)
-- [Stories About decltype](./basic_content/decltype)
-- [Stories About pointer_refer](./basic_content/pointer_refer)
-- [Stories About macro](./basic_content/macro)
+- Chinese name: **C++ 那些事**
+- English name: **Stories About C Plus Plus**
 
-### 2.Code Samples
 
-#### 2.1 10 Days Practice
+This is a repository suitable for beginners going from **getting started to advanced**, solving the problems that **interviewees and learners** have about how to **dive into C++** and how to **fall in love with C++**. In addition, the repository extends into deeper topics such as source‑code analysis and multithreaded concurrency, making it a fairly comprehensive C++ learning repository that carries you from beginner to advanced level.
 
-- [x] day1
 
-Basic Grammar About C ++
-- [x] day2
+### Major Projects
 
-Recursive、Struct、Enumerate、Static Variable
 
-- [x] day3
+A series of major projects have been launched to help everyone learn C++ through hands‑on practice. Combined with this open‑source project, progress can be very rapid.
 
-Function
 
-- [x] day4
+Entry point: [Click here](./proj/README.md)
 
-Thorough About Function 
 
-- [x] day5
+### About the Author
 
-Inheritance and Polymorphism 
 
-- [x] day6
+The official WeChat account now has two main sections: “Albums” and “Menu”, where you can directly read the *Stories About C++* content inside WeChat. Combined with the code in this repository, the experience is extremely enjoyable, so we recommend you follow it.
 
-Virtual Function、Abstruct 
+WeChat official account: guangcity
 
-- [x] day7
+Or scan the QR code below. Feedback and C++‑related discussions are welcome. I’ve created a “Stories About C++” discussion group on WeChat; after following the official account above, click the “Contact Me” button in the bottom‑right corner of the account page to get invited into the group.
 
-Operator overloading
 
-- [x] day8
+---
 
-Template And STL
+> Follow me
 
-- [x] day9
 
-Exception
+If you like it, follow me~
 
-- [x] day10
 
-File And Stream
+<table>
+  <tbody>
+    <tr>
+      <th align="center" style="height=200 width="200">
+          <img src="./img/cpp.jpg" height="200" width="200" ><br>
+          Membership community
+      </th>
+      <th align="center" style="height=200 width="200">
+          <img src="./img/wechat.jpg" height="200" width="200" ><br>
+          WeChat official account
+      </th>
+    </tr>
+  </tbody>
+</table>
 
-#### 2.2 Practical Exercises
 
-├── [Square brackets overload .cpp](./practical_exercises/key_exercises/中括号重载.cpp)
-├── [Clock++operator overloading.cpp](./practical_exercises/key_exercises/时钟++运算符重载.cpp)
-├── [Mandatory conversion of operator overloading.cpp](./practical_exercises/key_exercises/运算符重载之强制转换.cpp)
-└── [Clock with overloaded parenthesis.cpp](./practical_exercises/key_exercises/重载圆括号的时钟.cpp)
 
-├── [Template of Function.cpp](./practical_exercises/key_exercises/函数模板.cpp)
+### Running the Project
 
-├── [Dynamic array.cpp](./practical_exercises/key_exercises/动态数组.cpp)
+#### Method 1: vscode + bazel
 
-├── [Dictionary insertion and search.cpp](./practical_exercises/key_exercises/字典插入与查找.cpp)
+#### Method 2: docker
 
-├── [Catch Exception.cpp](./practical_exercises/key_exercises/异常捕获.cpp)
+A no‑dev‑environment Docker image has been introduced. You can pull the image below:
 
-├── [Template of Stack.cpp](./practical_exercises/key_exercises/类模板之栈.cpp)
 
-├── [Template of Array.cpp](./practical_exercises/key_exercises/类模板特化之数组.cpp)
+```
+docker pull xingfranics/cplusplusthings:latest
+```
 
-├── [Inheritance And Package.cpp](./practical_exercises/key_exercises/继承与封装.cpp)
+#### Method 3: g++
 
-├── [Read And Write files.cpp](./practical_exercises/key_exercises/读写文件综合题.cpp)
-├── [Operator Overloading About Input and Output.cpp](./practical_exercises/key_exercises/输入输出运算符重载.cpp)
-├── [Input And Output Overloading.cpp](./practical_exercises/key_exercises/输入输出重载.cpp)
-├── [Input Format.cpp](./practical_exercises/key_exercises/输出格式.cpp)
+### Video‑based Learning
 
-### 2.[C++2.0 New Features](./c++2.0)
+[Episode 1: Step‑by‑Step Compilation of This Project](https://www.bilibili.com/video/BV1Rv4y1H7LB/?vd_source=bb6532dcd5b1d6b26125da900adb618e)
 
-#### 2.0 Overview
 
-C++2.0 is an Abbreviation, meaning「modern C++」，including C++11/14/17/20.
+[Episode 2: No‑dev‑environment Docker Setup](https://www.bilibili.com/video/BV1oz4y1a7Pu/?vd_source=bb6532dcd5b1d6b26125da900adb618e)
 
-#### 2.1 [C++11 New Features](./c++2.0/c++11)
 
-- [Variadic Templates](./c++2.0/variadic)
+[Episode 3: Line‑by‑line Reading of HashTable – Deep Dive into C++ STL](https://www.bilibili.com/video/BV1o8411U7vy/?vd_source=bb6532dcd5b1d6b26125da900adb618e)
+
+
+[Episode 4: Line‑by‑Line Reading of STL’s enable_shared_from_this](https://www.bilibili.com/video/BV1du4y1w7Mg/?spm_id_from=333.788&vd_source=bb6532dcd5b1d6b26125da900adb618e)
+
+
+[Episode 5: Line‑by‑Line Reading of STL Threading – from C++11 thread to C++20 jthread](https://www.bilibili.com/video/BV1DH4y1g7gS/?vd_source=bb6532dcd5b1d6b26125da900adb618e)
+
+
+[Episode 6: Line‑by‑Line Reading of STL condition_variable and condition_variable_any](https://www.bilibili.com/video/BV13b421b7Am/?spm_id_from=333.999.0.0&vd_source=bb6532dcd5b1d6b26125da900adb618e)
+
+
+[Episode 7: Line‑by‑Line Reading of STL Mutex](https://www.bilibili.com/video/BV1xm42157pq/?spm_id_from=333.999.0.0&vd_source=bb6532dcd5b1d6b26125da900adb618e)
+
+
+[Episode 8: Line‑by‑Line Reading of STL RAII Lock](https://www.bilibili.com/video/BV1Ls421g7iq/?spm_id_from=333.788&vd_source=bb6532dcd5b1d6b26125da900adb618e)
+
+
+### Lark Knowledge Base
+
+[Real Interview Records from Internet Giants](https://hmpy6adnp5.feishu.cn/docx/OitBdRB4KozIhTxQt7Ec7iFDnkc)
+
+
+[Must‑read Interview Guide for Landing Offers](https://hmpy6adnp5.feishu.cn/docx/B1aCdVTUgoyJGYxtWV7cdvgRnxv)
+
+
+
+### Basics and Beyond
+
+- [`const` Tips and Tricks](./basic_content/const)
+- [`static` Tips and Tricks](./basic_content/static)
+- [`this` Tips and Tricks](./basic_content/this)
+- [`inline` Tips and Tricks](./basic_content/inline)
+- [`sizeof` Tips and Tricks](./basic_content/sizeof)
+- [Function Pointers Tips and Tricks](./basic_content/func_pointer)
+- [Pure Virtual Functions and Abstract Classes Tips and Tricks](./basic_content/abstract)
+- [`vptr_vtable` Tips and Tricks](./basic_content/vptr_vtable)
+- [`virtual` Tips and Tricks](./basic_content/virtual)
+- [`volatile` Tips and Tricks](./basic_content/volatile)
+- [`assert` Tips and Tricks](./basic_content/assert)
+- [Bit Fields Tips and Tricks](./basic_content/bit)
+- [`extern` Tips and Tricks](./basic_content/extern)
+- [`struct` Tips and Tricks](./basic_content/struct)
+- [`struct` vs `class` Tips and Tricks](./basic_content/struct_class)
+- [`union` Tips and Tricks](./basic_content/union)
+- [Implementing C++ Polymorphism in C Tips and Tricks](./basic_content/c_poly)
+- [`explicit` Tips and Tricks](./basic_content/explicit)
+- [`friend` Tips and Tricks](./basic_content/friend)
+- [`using` Tips and Tricks](./basic_content/using)
+- [`::` Tips and Tricks](./basic_content/maohao)
+- [`enum` Tips and Tricks](./basic_content/enum)
+- [`decltype` Tips and Tricks](./basic_content/decltype)
+- [References and Pointers Tips and Tricks](./basic_content/pointer_refer)
+- [Macros Tips and Tricks](./basic_content/macro)
+
+
+### Hands‑on Series
+
+#### [10‑Day Intensive Practice](./practical_exercises/10_day_practice)
+
+
+- [Day 1 – Basic Syntax](practical_exercises/10_day_practice/day1)
+
+
+- [Day 2 – Recursion, Structs, Enums, Static Variables, etc.](practical_exercises/10_day_practice/day2)
+
+
+- [Day 3 – Functions 1](practical_exercises/10_day_practice/day3)
+
+
+- [Day 4 – Functions 2](practical_exercises/10_day_practice/day4)
+
+
+- [Day 5 – Inheritance and Polymorphism](practical_exercises/10_day_practice/day5)
+
+
+- [Day 6 – Virtual Functions and Abstract Classes](practical_exercises/10_day_practice/day6)
+
+
+- [Day 7 – Operator Overloading](practical_exercises/10_day_practice/day7)
+
+
+- [Day 8 – Templates and STL](practical_exercises/10_day_practice/day8)
+
+
+- [Day 9 – Exceptions](practical_exercises/10_day_practice/day9)
+
+
+- [Day 10 – Files and Streams](practical_exercises/10_day_practice/day10)
+
+
+#### [Key Hands‑on Exercises](./practical_exercises/key_exercises/)
+
+
+- [Overloading Square Brackets.cpp](./practical_exercises/key_exercises/bracket_overloading.cpp)
+
+
+- [Clock ++ Operator Overloading.cpp](./practical_exercises/key_exercises/clock.cpp)
+
+
+- [Type‑Cast Operator Overloading.cpp](./practical_exercises/key_exercises/operator_cast.cpp)
+
+
+- [Circle‑Parentheses Overloading for Clock.cpp](./practical_exercises/key_exercises/operator_circle.cpp)
+
+
+- [Function Template.cpp](./practical_exercises/key_exercises/func_temp.cpp)
+
+
+- [Dynamic Array.cpp](./practical_exercises/key_exercises/array.cpp)
+
+
+- [Dictionary Insert and Lookup.cpp](./practical_exercises/key_exercises/map_insert_look.cpp)
+
+
+- [Exception Handling Try.cpp](./practical_exercises/key_exercises/try.cpp)
+
+
+- [Class Template Stack.cpp](./practical_exercises/key_exercises/stack.cpp)
+
+
+- [Class Template Specialization for Array.cpp](./practical_exercises/key_exercises/array_template.cpp)
+
+
+- [Inheritance and Encapsulation.cpp](./practical_exercises/key_exercises/override.cpp)
+
+
+- [Comprehensive File Read/Write Problem.cpp](./practical_exercises/key_exercises/read_file.cpp)
+
+
+- [Input/Output Operator Overloading.cpp](./practical_exercises/key_exercises/io_operator_overload.cpp)
+
+
+- [Input/Output Overloading.cpp](./practical_exercises/key_exercises/io_operator.cpp)
+
+
+- [Output Formatting.cpp](./practical_exercises/key_exercises/output.cpp)
+
+
+
+### [C++2.0 New Features](./cpp2.0)
+
+
+#### Overview
+
+
+C++2.0 is a shorthand term meaning “Modern C++”, covering C++11/14/17/20.
+
+
+#### [C++11 New Features](./cpp2.0/cpp11)
+
+
+- [Variadic Templates](./cpp2.0/cpp11/variadic)
+
 
 - Spaces in Template Expressions
 
+
   ```cpp
-  vector<list<int> > //ok in each C++ version
-  vector<list<int>> // before c++ 11 error error: ‘>>’ should be ‘> >’ within a nested template argument list,version beyond c++ 11 could   compile successfully
+  vector<list<int> > // ok in each C++ version
+  vector<list<int>>  // before C++11: error: ‘>>’ should be ‘> >’ within a nested template argument list; accepted in C++11 and later
   ```
 
-- [nullptr and nullptr_t](./c++2.0/nullptr.cpp)
 
-- [Automatic Type Deduction with auto](./c++2.0/auto.cpp)
+- [nullptr and nullptr_t](./cpp2.0/cpp11/nullptr.cpp)
 
-- [Uniform Initialization ](./c++2.0/uniform_initialization.cpp)
 
-- [initializer_list](./c++2.0/initializer.cpp)
+- [Automatic Type Deduction with auto](./cpp2.0/cpp11/auto.cpp)
 
-- [explicit for ctors taking more than one argument](./c++2.0/explicit.cpp)
 
-- [range-based for statement](./c++2.0/auto.cpp)
+- [Uniform Initialization](./cpp2.0/cpp11/uniform_initialization.cpp)
+
+
+- [initializer_list](./cpp2.0/cpp11/initializer.cpp)
+
+
+- [explicit for ctors taking more than one argument](./cpp2.0/cpp11/explicit.cpp)
+
+
+- [Range‑based for statements](./cpp2.0/cpp11/auto.cpp)
+
 
   ```cpp
   for(decl:col) {
@@ -149,57 +310,83 @@ C++2.0 is an Abbreviation, meaning「modern C++」，including C++11/14/17/20.
   }
   ```
 
-- [=default,=delete](./c++2.0/default_delete.cpp)
 
-  If you define a ctor by yourself, compiler won't compile the default ctor.
-  If you add =default, you could recatch and use default ctor.
+- [=default, =delete](./cpp2.0/cpp11/default_delete.cpp)
 
-- Alias(化名)Template(template typedef)
 
-  - [alias.cpp](./c++2.0/alias.cpp) 
-  - [template_template.cpp](./c++2.0/template_template.cpp)
+  If you define a constructor yourself, the compiler won’t automatically generate a default constructor.  
+  By explicitly adding `=default`, you can regain and use the default constructor again.
 
-- [template template parameter](./c++2.0/template_template.cpp)
 
-- [type alias](./c++2.0/type_alias.cpp)
+- Alias (type‑alias) Templates (template typedef)
 
-- [noexcept](./c++2.0/noexcept.cpp)
 
-- [override](./c++2.0/override.cpp)
+  - [alias.cpp](./cpp2.0/cpp11/alias.cpp)
+  - [template_template.cpp](./cpp2.0/cpp11/template_template.cpp)
 
-- [final](./c++2.0/final.cpp)
 
-- [decltype](./c++2.0/decltype.cpp)
+- [Template Template Parameters](./cpp2.0/template_template.cpp)
 
-- [lambda](./c++2.0/lambda.cpp)
 
-- [Rvalue reference](./c++2.0/rvalue.cpp)
+- [Type Aliases](./cpp2.0/cpp11/type_alias.cpp)
 
-- [move aware class](./c++2.0/move.cpp)
 
-- Container-Struct And Classify
+- [noexcept](./cpp2.0/cpp11/noexcept.cpp)
 
-  - (1) Serial containers include：`array`(C++2.0 Newly Introduced),`vector`,`deque`,`list`,`forward_list`(C++2.0 Newly Introduced)
-  - (2) Associated containers include：`set/multiset`,`map/multimap`
-  - (3) Unordered container(C++2.0 Newly Introduced,replace `hash_xxx` to `unordered_xxx`) include：`unordered_map/unordered_multimap,unordered_set/unordered_multiset`
 
-- [Hash Function](./c++2.0/hash.cpp)
+- [override](./cpp2.0/cpp11/override.cpp)
 
-- [tuple](./c++2.0/tuple.cpp)
 
-  Learning Material：https://www.bilibili.com/video/av51863195?from=search&seid=3610634846288253061
+- [final](./cpp2.0/cpp11/final.cpp)
 
-### 2.2 C++14/17/20
 
-To Be Continued ...
+- [decltype](./cpp2.0/cpp11/decltype.cpp)
 
-### 3.Design Pattern
 
-- [Singleton pattern](./design_pattern/singleton)
+- [lambda](./cpp2.0/cpp11/lambda.cpp)
 
-### 4. [STL Source Code Analysis](./src_analysis/stl)
 
-**STL Source Code Analysis：gcc 4.9.1**
+- [Rvalue References](./cpp2.0/cpp11/rvalue.cpp)
+
+
+- [Move‑Aware Classes](./cpp2.0/cpp11/move.cpp)
+
+
+- Containers – Structure and Classification
+
+
+  - (1) Sequence containers: `array` (new in C++2.0), `vector`, `deque`, `list`, `forward_list` (new in C++2.0)
+  - (2) Associative containers: `set/multiset`, `map/multimap`
+  - (3) Unordered containers (new in C++2.0; replacing `hash_xxx` with `unordered_xxx`): `unordered_map/unordered_multimap`, `unordered_set/unordered_multiset`
+
+
+- [Hash Function](./cpp2.0/cpp11/hash.cpp)
+
+
+- [tuple](./cpp2.0/cpp11/tuple.cpp)
+
+
+  Learning resource: https://www.bilibili.com/video/av51863195?from=search&seid=3610634846288253061
+
+
+#### C++14/17/20
+
+
+To be updated…
+
+
+### Design Patterns
+
+
+- [Singleton Pattern](./design_pattern/singleton)
+- [Producer–Consumer Pattern](./design_pattern/producer_consumer)
+
+
+### [STL Source Code Analysis](./src_analysis/stl)
+
+
+**STL Source Code Analysis: gcc 4.9.1**
+
 
 - [array](./src_analysis/stl/array.md)
 - [deque](./src_analysis/stl/deque.md)
@@ -209,83 +396,102 @@ To Be Continued ...
 - [typename](./src_analysis/stl/typename.md)
 - [traits](./src_analysis/stl/traits.md)
 - [iterator](./src_analysis/stl/iterator.md)
-- [Talking about STL design and EBO optimization](./src_analysis/stl/谈谈STL设计之EBO优化.md)
+- [On STL Design – EBO Optimization](./src_analysis/stl/谈谈STL设计之EBO优化.md)
 - [rb_tree](./src_analysis/stl/rb_tree.md)
-- [set and multiset](set_multiset.md)
+- [set and multiset](./src_analysis/stl/set_multiset.md)
 - [map and multimap](./src_analysis/stl/map_multimap.md)
 - [hashtable](./src_analysis/stl/hashtable.md)
-- [myhashtable](./src_analysis/stl/myPhashtable.md)
+- [myhashtable](./src_analysis/stl/myhashtable.md)
 - [unordered_map](./src_analysis/stl/unordered_map.md)
 
-### 4. [Concurrent Programming](./concurrency)
 
-#### 4.1 C++ Concurrency in Action
+### [Concurrency Programming](./concurrency)
 
-- [Chapter One](./concurrency/concurrency_v1/chapter1)
-- [Chapter Two](./concurrency/concurrency_v1/chapter2)
 
-Learning materials: https://chenxiaowei.gitbook.io/cpp_concurrency_in_action/
+#### C++ Concurrency in Action
 
-#### 4.2 Multithreading And Multiprocess
 
-##### 4.2.1 Threading In C++
+- [Chapter 1](./concurrency/concurrency_v1/chapter1)
+- [Chapter 2](./concurrency/concurrency_v1/chapter2)
+
+
+Learning resource: https://downdemo.gitbook.io/cpp-concurrency-in-action-2ed/
+
+
+#### Multithreading and Multiprocessing
+
+
+##### Threading In C++
+
 
 - [Introduction](./concurrency/Threading_In_CPlusPlus/1.thread)
-- [Five Types of Thread Creation](./concurrency/Threading_In_CPlusPlus/2.create_type)
-- [Join And Detaches](./concurrency/Threading_In_CPlusPlus/3.join_detach)
-- [mutex in C++ Threading](./concurrency/Threading_In_CPlusPlus/4.mutex)
+- [Five Ways to Create Threads](./concurrency/Threading_In_CPlusPlus/2.create_type)
+- [Join and Detach](./concurrency/Threading_In_CPlusPlus/3.join_detach)
+- [Mutex in C++ Threading](./concurrency/Threading_In_CPlusPlus/4.mutex)
 
-> From：
+
+> Studied from:
 >
-> https://www.youtube.com/watch?v=eZ8yKZo-PGw&list=PLk6CEY9XxSIAeK-EAh3hB4fgNvYkYmghp&index=4
+> [https://www.youtube.com/watch?v=eZ8yKZo-PGw&list=PLk6CEY9XxSIAeK-EAh3hB4fgNvYkYmghp&index=4](https://www.youtube.com/watch?v=eZ8yKZo-PGw&list=PLk6CEY9XxSIAeK-EAh3hB4fgNvYkYmghp&index=4)
 
-### 5. [C++ Conventional method](./codingStyleIdioms)
 
-##### What is your favorite custom for c ++ programming style?
+### [C++ Idioms](./codingStyleIdioms)
 
-- [1.ClassInitializers](./codingStyleIdioms/1_classInitializers)
-- [2.Replace Enumclass with Namespace](./codingStyleIdioms/2_enumclass_namespace)
-- [3.RAII(Resource Acquisition Initialization)](./codingStyleIdioms/3_RAII)
-- [4.Copy and Swap](./codingStyleIdioms/4_copy-swap)
-- [5.pImpl(Pointer Implement)](./codingStyleIdioms/5_pImpl)
 
-### 6.Learning Courses
+##### What are your favorite C++ programming style idioms?
 
-#### 6.1 [Chinese Name:极客时间《现代 C++ 实战 30 讲》](https://time.geekbang.org/channel/home)
 
-- [heap、stack、RAII：How to manage resources for C ++ ?](./learn_class/modern_cpp_30/RAII)
-  - [heap](./modern_++_30/RAII/heap.cpp)
-  - [stack](./learn_class/modern_cpp_30/RAII/stack.cpp)
+- [1. Class initializer lists](./codingStyleIdioms/1_classInitializers)
+- [2. Using enum class instead of namespaces](./codingStyleIdioms/2_enumclass_namespace)
+- [3. RAII (Resource Acquisition Is Initialization)](./codingStyleIdioms/3_RAII)
+- [4. Copy and swap](./codingStyleIdioms/4_copy-swap)
+- [5. pImpl (Pointer to Implementation)](./codingStyleIdioms/5_pImpl)
+
+
+### Learning Courses
+
+
+#### [Geek Time: 30 Practical Lectures on Modern C++](https://time.geekbang.org/channel/home)
+
+
+- [Heaps, stacks, RAII: How should resources be managed in C++?](./learn_class/modern_cpp_30/RAII)
+  - [Heap](./learn_class/modern_cpp_30/RAII/heap.cpp)
+  - [Stack](./learn_class/modern_cpp_30/RAII/stack.cpp)
   - [RAII](./learn_class/modern_cpp_30/RAII/RAII.cpp)
-- [Implementing smart pointers for C ++](./learn_class/modern_cpp_30/smart_ptr)
-  - [auto_ptr、scope_ptr](./learn_class/modern_cpp_30/smart_ptr/auto_scope.cpp)
+- [Implementing smart pointers in C++ by yourself](./learn_class/modern_cpp_30/smart_ptr)
+  - [auto_ptr, scoped_ptr](./learn_class/modern_cpp_30/smart_ptr/auto_scope.cpp)
   - [unique_ptr](./learn_class/modern_cpp_30/smart_ptr/unique_ptr.cpp)
   - [shared_ptr](./learn_class/modern_cpp_30/smart_ptr/shared_ptr.cpp)
-- [What exactly does r value and move solve？](./learn_class/modern_cpp_30/reference)
-  - [L value and R value](./learn_class/modern_cpp_30/reference/reference.cpp)
-  - [Extend the declaration cycle](./learn_class/modern_cpp_30/reference/lifetime.cpp)
-  - [Reference folding](./learn_class/modern_cpp_30/reference/collapses.cpp)
-  - [Perfect forward](./learn_class/modern_cpp_30/reference/forward.cpp)
-  - [Do not return Reference](./learn_class/modern_cpp_30/reference/don'treturnReference.cpp)
-- [Container 1](./learn_class/modern_cpp_30/container1)
-- [Container 2](./learn_class/modern_cpp_30/container2)
-- [Exception](./learn_class/modern_cpp_30/exception)
-- [Literal、Static Assertion And Member Function Specifier](./learn_class/modern_cpp_30/literalAssert)
-- [Return Object？](./learn_class/modern_cpp_30/returnObj)c
-- [Getting started with generic programming and templates](./learn_class/modern_cpp_30/compilerpoly)
-- [A whole Compiler Compute World](./learn_class/modern_cpp_30/compilercompute)
-- [SFINAE：What is it if it is not replace error?](./learn_class/modern_cpp_30/SFINAE)
-- [constexpr：A Normal World](./learn_class/modern_cpp_30/constexpr)
-- [Function object and Lambda：functionLambda](./learn_class/modern_cpp_30/functionLambda)
-- [Memory Model and Atomic：Understanding the complexity of concurrency](./learn_class/modern_cpp_30/memorymodel_atomic)
+- [What problems do rvalues and move operations solve?](./learn_class/modern_cpp_30/reference)
+  - [Lvalues and rvalues](./learn_class/modern_cpp_30/reference/reference.cpp)
+  - [Extending lifetimes](./learn_class/modern_cpp_30/reference/lifetime.cpp)
+  - [Reference collapsing](./learn_class/modern_cpp_30/reference/collapses.cpp)
+  - [Perfect forwarding](./learn_class/modern_cpp_30/reference/forward.cpp)
+  - [Never return references to local variables](./learn_class/modern_cpp_30/reference/don'treturnReference.cpp)
+- [Containers 1](./learn_class/modern_cpp_30/container1)
+- [Containers 2](./learn_class/modern_cpp_30/container2)
+- [Exceptions](./learn_class/modern_cpp_30/exception)
+- [Literals, static assertions, and member function specifiers](./learn_class/modern_cpp_30/literalAssert)
+- [Should you return objects or references?](./learn_class/modern_cpp_30/returnObj)
+- [Compile‑time polymorphism: generic programming and template basics](./learn_class/modern_cpp_30/compilerpoly)
+- [What can be done at compile‑time? A full computational world](./learn_class/modern_cpp_30/compilercompute)
+- [SFINAE: What does “substitution failure is not an error” really mean?](./learn_class/modern_cpp_30/SFINAE)
+- [constexpr: A world of compile‑time constants](./learn_class/modern_cpp_30/constexpr)
+- [Function objects and lambdas: stepping into functional programming](./learn_class/modern_cpp_30/functionLambda)
+- [Memory models and atomic: understanding the complexity of concurrency](./learn_class/modern_cpp_30/memorymodel_atomic)
 
-### 7.Tools
 
-#### 7.1 [Container shortcut output tool](./tool/output)
+### Tools
 
-Modified the code, [Click here for the code](./tool/output/output_container.h)
 
-Input：
+#### [Container Quick Output Utility](./tool/output)
+
+
+Modified from the original code by Professor Wu. [Click here to jump to the code](./tool/output/output_container.h)
+
+
+Input example:
+
 
 ```cpp
 map<int, int> mp{
@@ -295,55 +501,46 @@ map<int, int> mp{
     cout << mp << endl;
 ```
 
-Output：
+
+Output result:
+
 
 ```cpp
 { 1 => 1, 2 => 4, 3 => 9 }
 ```
 
-#### 7.2 Output Like Python（Jupyter Notebook）
 
-- [How to output like python in C/C++](./tool/像Python一样玩CC++.md)
-
-#### 7.3 Observe the changes in the compilation process
-
--  [https://cppinsights.io](https://cppinsights.io/)
-
-#### 7.4 Debug Tools For C ++：dbg-macro
-
-- [Debug Tool: dbg-macro](./tool/C++的Debug工具dbg-macro.md)
-
-### 8.Expansion
-
-#### 8.1 Other Problems
-- [How to convert string to in C ++？](./extension/some_problem/string_int.md)
+#### Simple Python‑style Output (Jupyter Notebook)
 
 
-### 9.Circumstance
+- [Playing with C/C++ like in Python](./tool/像Python一样玩CC++.md)
 
 
-- **Running Circumstance**
-
-  Ubuntu 18.04
-
-- **IDE**
-
-  CLion  gcc/g++
-
-### 10.Contributor
+#### Inspecting Compilation‑Process Changes
 
 
-
-| 贡献人  | 地址                          |
-| ------- | ----------------------------- |
-| 光城    | https://github.com/Light-City |
-| ChungZH | https://github.com/ChungZH    |
-| xliu79  | https://github.com/xliu79     |
+- [https://cppinsights.io](https://cppinsights.io)
 
 
+#### C++ Debug Macro: dbg‑macro
 
-### 11.About The Writer
+- [C++ Debug Tool: dbg‑macro](./tool/C++的Debug工具dbg-macro.md)
 
-个人公众号：
+#### Debug Tool rr on Linux – “Time‑Travel” Capability
 
-![](./img/wechat.jpg)
+- [Using rr for debugging](./tool/用rr来进行debug.md)
+
+### Extensions
+
+#### Some Common Questions
+
+- [How to convert a string to an int in C++?](./extension/some_problem/string_int.md)
+
+
+### Contributors
+
+| Contributor | URL                          |
+|-----------|------------------------------|
+| Guangcheng  | [https://github.com/Light-City](https://github.com/Light-City) |
+| ChungZH   | [https://github.com/ChungZH](https://github.com/ChungZH)    |
+| xliu79    | [https://github.com/xliu79](https://github.com/xliu79)     |
