@@ -141,7 +141,6 @@ docker pull xingfranics/cplusplusthings:latest
 [Must‑read Interview Guide for Landing Offers](https://hmpy6adnp5.feishu.cn/docx/B1aCdVTUgoyJGYxtWV7cdvgRnxv)
 
 
-
 ### Basics and Beyond
 
 - [`const` Tips and Tricks](./basic_content/const)
