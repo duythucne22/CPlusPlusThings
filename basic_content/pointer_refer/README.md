@@ -1,127 +1,147 @@
-# 引用与指针那些事
+# Stories About References and Pointers
 
-## 关于作者：
 
-个人公众号：
+## About the Author
+
+
+Personal WeChat official account:
+
 
 ![](../img/wechat.jpg)
 
-## 1.引用与指针
 
-总论：
+## 1. References vs pointers
 
-| 引用         | 指针         |
-| ------------ | ------------ |
-| 必须初始化   | 可以不初始化 |
-| 不能为空     | 可以为空     |
-| 不能更换目标 | 可以更换目标 |
 
-> 引用必须初始化，而指针可以不初始化。
+Overall:
 
-我们在定义一个引用的时候必须为其指定一个初始值，但是指针却不需要。
+| Reference        | Pointer          |
+|------------------|------------------|
+| Must be initialized | Can be uninitialized |
+| Cannot be null   | Can be null      |
+| Cannot change target | Can change target |
 
-```c++
-int &r;    //不合法，没有初始化引用
-int *p;    //合法，但p为野指针，使用需要小心
+
+> **References must be initialized; pointers can remain uninitialized.**
+
+When we define a reference, it must be given an initial value right away, but a pointer does not need to be initialized at declaration.
+
+```cpp
+int &r;    // illegal: uninitialized reference
+int *p;    // legal, but p is a dangling (wild) pointer; use carefully
 ```
 
-> 引用不能为空，而指针可以为空。
 
-由于引用不能为空，所以我们在使用引用的时候不需要测试其合法性，而在使用指针的时候需要首先判断指针是否为空指针，否则可能会引起程序崩溃。
+> **References cannot be null; pointers can.**
 
-```c++
+Because a reference cannot be null, we do not need to test its validity before use. With pointers, we must first check whether the pointer is null, or the program may crash.
+
+```cpp
 void test_p(int* p)
 {
-  	if(p != null_ptr)    //对p所指对象赋值时需先判断p是否为空指针
-    	*p = 3;
+    if (p != nullptr)    // must check p before dereferencing
+        *p = 3;
     return;
 }
+
 void test_r(int& r)
 {
-    r = 3;    //由于引用不能为空，所以此处无需判断r的有效性就可以对r直接赋值
+    r = 3;    // no null check needed; r always refers to a valid object
     return;
 }
 ```
 
-> 引用不能更换目标
 
-指针可以随时改变指向，但是引用只能指向初始化时指向的对象，无法改变。
+> **References cannot change target.**
 
-```
+A pointer can be redirected to different objects at any time, while a reference is tied forever to the object it was initialized with. It cannot be “rebound”.
+
+```cpp
 int a = 1;
 int b = 2;
 
-int &r = a;    //初始化引用r指向变量a
-int *p = &a;   //初始化指针p指向变量a
+int &r = a;    // bind reference r to variable a
+int *p = &a;   // make pointer p point to a
 
-p = &b;        //指针p指向了变量b
-r = b;         //引用r依然指向a，但a的值变成了b
+p = &b;        // p now points to b
+r = b;         // r still refers to a; a’s value becomes b’s value
 ```
 
-## 2.引用
 
-#### 左值引用
+## 2. References
 
-常规引用，一般表示对象的身份。
 
-#### 右值引用
+### Lvalue references
 
-右值引用就是必须绑定到右值（一个临时对象、将要销毁的对象）的引用，一般表示对象的值。
 
-右值引用可实现转移语义（Move Sementics）和精确传递（Perfect Forwarding），它的主要目的有两个方面：
+A normal reference, typically used to represent the **identity** of an object.
 
-- 消除两个对象交互时不必要的对象拷贝，节省运算存储资源，提高效率。
-- 能够更简洁明确地定义泛型函数。
+### Rvalue references
 
-#### 引用折叠
 
-- `X& &`、`X& &&`、`X&& &` 可折叠成 `X&`
-- `X&& &&` 可折叠成 `X&&`
+An rvalue reference is a reference that must bind to an rvalue (a temporary or soon‑to‑be‑destroyed object), and usually represents the **value** of an object.
 
-C++的引用**在减少了程序员自由度的同时提升了内存操作的安全性和语义的优美性**。比如引用强制要求必须初始化，可以让我们在使用引用的时候不用再去判断引用是否为空，让代码更加简洁优美，避免了指针满天飞的情形。除了这种场景之外引用还用于如下两个场景：
+Rvalue references enable **move semantics** and **perfect forwarding**. Their main purposes are:
 
-> 引用型参数
+- Eliminate unnecessary copies when objects are passed or returned, saving memory and improving performance.  
+- Allow cleaner and more explicit generic code (e.g., in template libraries).  
 
-一般我们使用const reference参数作为只读形参，这种情况下既可以避免参数拷贝还可以获得与传值参数一样的调用方式。
 
-```c++
+### Reference collapsing
+
+
+- `X& &`, `X& &&`, `X&& &` all collapse to `X&`.  
+- `X&& &&` collapses to `X&&`.  
+
+
+In C++, references **reduce programmer freedom but improve memory‑access safety and semantic clarity**. For example, requiring initialization means you never need to check a reference for null, which cleans up the code and avoids rampant pointer use. References are also heavily used in two specific contexts:
+
+> **Reference parameters**
+
+Often we use `const`‑qualified references as read‑only parameters. This avoids expensive copies while still providing the same calling syntax as pass‑by‑value.
+
+```cpp
 void test(const vector<int> &data)
 {
-    //...
+    // ...
 }
+
 int main()
 {
-  	vector<int> data{1,2,3,4,5,6,7,8};
+    vector<int> data{1, 2, 3, 4, 5, 6, 7, 8};
     test(data);
 }
 ```
 
-> 引用型返回值
 
-C++提供了重载运算符的功能，我们在重载某些操作符的时候，使用引用型返回值可以获得跟该操作符原来语法相同的调用方式，保持了操作符语义的一致性。一个例子就是operator []操作符，这个操作符一般需要返回一个引用对象，才能正确的被修改。
+> **Reference return values**
 
-```c++
+Overloaded operators in C++ can return references so that the operator can be used in the same way as the built‑in version. For example, `operator[]` usually returns a reference so the element can be assigned to:
+
+```cpp
 vector<int> v(10);
-v[5] = 10;    //[]操作符返回引用，然后vector对应元素才能被修改
-              //如果[]操作符不返回引用而是指针的话，赋值语句则需要这样写
-*v[5] = 10;   //这种书写方式，完全不符合我们对[]调用的认知，容易产生误解
+v = 10;    // operator[] returns a reference, so v can be modified [cnblogs](https://www.cnblogs.com/scw2901/p/4452620.html)
+              // If it returned a pointer, you would need:
+*v = 10;   // this syntax is unnatural and confusing [cnblogs](https://www.cnblogs.com/scw2901/p/4452620.html)
 ```
 
-## 3.指针与引用的性能差距
 
-指针与引用之间有没有性能差距呢？这种问题就需要进入汇编层面去看一下。我们先写一个test1函数，参数传递使用指针：
+## 3. Performance difference between pointers and references
 
-```c++
+
+Is there any performance difference between pointers and references? To answer this, we must look at the generated assembly code. First, define `test1` using a pointer parameter:
+
+```cpp
 void test1(int* p)
 {
-    *p = 3;    //此处应该首先判断p是否为空，为了测试的需要，此处我们没加。
+    *p = 3;    // no null check here, just for testing
     return;
 }
 ```
 
-该代码段对应的汇编代码如下：
+The corresponding assembly might look like:
 
-```c++
+```text
 (gdb) disassemble 
 Dump of assembler code for function test1(int*):
    0x0000000000400886 <+0>:  push   %rbp
@@ -133,24 +153,26 @@ Dump of assembler code for function test1(int*):
    0x0000000000400899 <+19>: pop    %rbp
    0x000000000040089a <+20>: retq   
 End of assembler dump.
-
 ```
 
-上述代码1、2行是参数调用保存现场操作；第3行是参数传递，函数调用第一个参数一般放在rdi寄存器，此行代码把rdi寄存器值（指针p的值）写入栈中；第4行是把栈中p的值写入rax寄存器；第5行是把立即数3写入到**rax寄存器值所指向的内存**中，此处要注意(%rax)两边的括号，这个括号并并不是可有可无的，(%rax)和%rax完全是两种意义，(%rax)代表rax寄存器中值所代表地址部分的内存，即相当于C++代码中的*p，而%rax代表rax寄存器，相当于C++代码中的p值，所以汇编这里使用了(%rax)而不是%rax。
+- Instructions 1–2 save the call‑frame context.  
+- Instruction 3 stores the pointer `p` (passed in register `rdi`) onto the stack.  
+- Instruction 4 loads that stored pointer into `rax`.  
+- Instruction 5 writes the immediate value `3` into the memory location pointed to by `rax`—`(%rax)` means “the memory at address `rax`”, i.e., `*p`.  
 
-我们再写出参数传递使用引用的C++代码段test2：
+Next, define `test2` using a reference parameter:
 
-```c++
+```cpp
 void test2(int& r)
 {
-    r = 3;    //赋值前无需判断reference是否为空
+    r = 3;     // no need to check r for null
     return;
 }
 ```
 
-这段代码对应的汇编代码如下：
+Its assembly:
 
-```c++
+```text
 (gdb) disassemble 
 Dump of assembler code for function test2(int&):
    0x000000000040089b <+0>:  push   %rbp
@@ -162,13 +184,14 @@ Dump of assembler code for function test2(int&):
    0x00000000004008ae <+19>: pop    %rbp
    0x00000000004008af <+20>: retq   
 End of assembler dump.
-
 ```
 
-我们发现test2对应的汇编代码和test1对应的汇编代码完全相同，这说明C++编译器在编译程序的时候将指针和引用编译成了完全一样的机器码。所以C++中的引用只是C++对指针操作的一个“语法糖”，在底层实现时C++编译器实现这两种操作的方法完全相同。
+The assembly code is **identical** to `test1`. This means that at the machine‑code level, pointers and references are implemented the same way. In other words, C++ references are essentially a **syntactic sugar** over pointers: the compiler generates the same instructions for both, but the language imposes stricter rules on references to make them safer and more expressive. [web:98][web:102]
 
-## 3.总结
 
-C++中引入了引用操作，在对引用的使用加了更多限制条件的情况下，保证了引用使用的安全性和便捷性，还可以保持代码的优雅性。在适合的情况使用适合的操作，引用的使用可以一定程度避免“指针满天飞”的情况，对于提升程序稳定性也有一定的积极意义。最后，指针与引用底层实现都是一样的，不用担心两者的性能差距。
+## 4. Summary
 
-上述部分参考自：<http://irootlee.com/juicer_pointer_reference/#>
+
+C++ introduced references to enhance safety and convenience. The constraints on references (must be initialized, cannot be null, cannot be rebound) make them easier and safer to use than raw pointers, helping to avoid “pointer‑filled” code and improving program stability. At the lower level, both pointers and references are implemented the same way, so there is **no performance difference** between them. The choice is mainly semantic and stylistic: use references where you want an alias to an existing object, and pointers where you need explicit indirection, optional nullability, or pointer arithmetic.
+
+Adapted from: <http://irootlee.com/juicer_pointer_reference/#>

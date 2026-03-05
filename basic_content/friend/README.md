@@ -1,89 +1,102 @@
-# 友元函数与友元类
+# Friend Functions and Friend Classes
 
-## 关于作者：
 
-个人公众号：
+## About the Author
+
+
+Personal WeChat official account:
+
 
 ![](../img/wechat.jpg)
 
-## 0.概述
 
-友元提供了一种 普通函数或者类成员函数 访问另一个类中的私有或保护成员 的机制。也就是说有两种形式的友元：
+## 0. Overview
 
-（1）友元函数：普通函数对一个访问某个类中的私有或保护成员。
 
-（2）友元类：类A中的成员函数访问类B中的私有或保护成员
+Friendship provides a mechanism that allows **ordinary functions** or **member functions of another class** to access private or protected members of a class. There are two main forms of friendship:
 
-优点：提高了程序的运行效率。
+1. **Friend function**: an ordinary function that accesses private or protected members of a class.  
+2. **Friend class**: a class whose member functions access private or protected members of another class.
 
-缺点：破坏了类的封装性和数据的透明性。
+Pros:
 
-总结：
-- 能访问私有成员
-- 破坏封装性
-- 友元关系不可传递
-- 友元关系的单向性
-- 友元声明的形式及数量不受限制
+- Increases runtime efficiency, since the friend can access data directly without going through normal accessors.
 
-## 1.友元函数
+Cons:
 
-在类声明的任何区域中声明，而定义则在类的外部。
+- Breaks the **encapsulation** and **data transparency** of the class.
 
+Summary:
+
+- Can access private members.  
+- Breaks encapsulation.  
+- Friendship is **not inheritable**.  
+- Friendship is **not transitive**.  
+- Friendship is **unidirectional** (B is friend of A does not imply A is friend of B).  
+- The form and number of friend declarations on a class are not restricted.  
+
+
+## 1. Friend functions
+
+
+A friend function is declared inside the class declaration (in any access section), but defined outside the class.
+
+```cpp
+friend <type> <friend_function_name>(<parameter_list>);
 ```
-friend <类型><友元函数名>(<参数表>);
-```
 
-注意，友元函数只是一个普通函数，并不是该类的类成员函数，它可以在任何地方调用，友元函数中通过对象名来访问该类的私有或保护成员。
+Note that a friend function is just an **ordinary function**, not a member function of the class. It can be called from anywhere and accesses the class’s private or protected members through an object name.
 
-具体代码见：[friend_func.cpp](friend_func.cpp)
+Example code: [friend_func.cpp](friend_func.cpp)
 
-```c++
+```cpp
 #include <iostream>
-
 using namespace std;
 
 class A
 {
 public:
-    A(int _a):a(_a){};
-    friend int geta(A &ca);  ///< 友元函数
+    A(int _a) : a(_a) {}
+    friend int geta(A &ca);   ///< friend function
 private:
     int a;
 };
 
-int geta(A &ca) 
+int geta(A &ca)
 {
     return ca.a;
 }
 
 int main()
 {
-    A a(3);    
-    cout<<geta(a)<<endl;
-
+    A a(3);
+    cout << geta(a) << endl;
     return 0;
 }
 ```
 
-## 2.友元类
-友元类的声明在该类的声明中，而实现在该类外。
 
+## 2. Friend classes
+
+
+A friend class is declared inside the class that grants friendship, but its implementation is outside.
+
+```cpp
+friend class <friend_class_name>;
 ```
-friend class <友元类名>;
-```
 
-类B是类A的友元，那么类B可以直接访问A的私有成员。
+If class B is a friend of class A, then class B can access the private and protected members of class A directly.
 
-具体代码见：[friend_class.cpp](friend_class.cpp)
-```c++
+Example code: [friend_class.cpp](friend_class.cpp)
+
+```cpp
 #include <iostream>
-
 using namespace std;
 
 class A
 {
 public:
-    A(int _a):a(_a){};
+    A(int _a) : a(_a) {}
     friend class B;
 private:
     int a;
@@ -93,23 +106,25 @@ class B
 {
 public:
     int getb(A ca) {
-        return  ca.a; 
-    };
+        return ca.a;
+    }
 };
 
-int main() 
+int main()
 {
     A a(3);
     B b;
-    cout<<b.getb(a)<<endl;
+    cout << b.getb(a) << endl;
     return 0;
 }
 ```
 
 
-## 3.注意
-- 友元关系没有继承性
-假如类B是类A的友元，类C继承于类A，那么友元类B是没办法直接访问类C的私有或保护成员。
+## 3. Important notes
 
-- 友元关系没有传递性
-假如类B是类A的友元，类C是类B的友元，那么友元类C是没办法直接访问类A的私有或保护成员，也就是不存在“友元的友元”这种关系。
+
+- **Friendship is not inherited.**  
+  If class B is a friend of class A, and class C inherits from class A, class B still cannot directly access private or protected members of class C.
+
+- **Friendship is not transitive.**  
+  If class B is a friend of class A, and class C is a friend of class B, class C cannot directly access private or protected members of class A. There is no concept of “the friend of a friend” in C++.  

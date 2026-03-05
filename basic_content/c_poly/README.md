@@ -1,41 +1,87 @@
-# C实现C++的面向对象特性
+# Implementing C++‑style Object‑Orientation in C
 
-## 关于作者：
 
-个人公众号：
+## About the Author
+
+
+Personal WeChat official account:
+
 
 ![](../img/wechat.jpg)
 
-## 1.C++实现案例
 
-C++中的多态:在C++中会维护一张虚函数表，根据赋值兼容规则，我们知道父类的指针或者引用是可以指向子类对象的。
-
-如果一个父类的指针或者引用调用父类的虚函数则该父类的指针会在自己的虚函数表中查找自己的函数地址，如果该父类对象的指针或者引用指向的是子类的对象，而且该子类已经重写了父类的虚函数，则该指针会调用子类的已经重写的虚函数。
-
-学习案例代码见:[c++_examp.cpp](./c++_examp.cpp)
+## 1. C++ implementation example
 
 
+Polymorphism in C++ is implemented via a **virtual‑function table (vtable)**. By the **assignment‑compatibility rule**, a pointer or reference to a base class can point to or bind to a derived‑class object.
 
-## 2.C实现
+If a base‑class pointer or reference calls a virtual function of the base class, the program looks up that function’s address in the base class’s own vtable. If the base‑class pointer or reference actually points to a derived‑class object, and the derived class has overridden the virtual function, the call will resolve to the overridden version in the derived class.
 
-- 封装
-
-C语言中是没有class类这个概念的，但是有struct结构体，我们可以考虑使用struct来模拟；
-
-使用函数指针把属性与方法封装到结构体中。
-
-- 继承
-
-结构体嵌套
-
-- 多态
-
-类与子类方法的函数指针不同
-
-在C语言的结构体内部是没有成员函数的，如果实现这个父结构体和子结构体共有的函数呢？我们可以考虑使用函数指针来模拟。但是这样处理存在一个缺陷就是：父子各自的函数指针之间指向的不是类似C++中维护的虚函数表而是一块物理内存，如果模拟的函数过多的话就会不容易维护了。
-
-模拟多态，必须保持函数指针变量对齐(在内容上完全一致，而且变量对齐上也完全一致)。否则父类指针指向子类对象，运行崩溃！
+Example code: [c++_examp.cpp](./c++_examp.cpp)
 
 
+## 2. Object‑oriented simulation in C
 
-学习案例代码见:[c_examp.c](./c_examp.c)
+
+### Encapsulation
+
+
+C does not have a `class` concept, but it does have `struct`. We can use `struct` to simulate classes.
+
+Member data and “methods” can be encapsulated by adding **function pointers** to the `struct`:
+
+```c
+struct Base {
+    int data;
+    void (*func)(struct Base *this);
+};
+```
+
+The `this`‑like pointer is passed explicitly to simulate C++‑style member‑function access.
+
+
+### Inheritance
+
+
+In C, inheritance is simulated by **embedding a parent structure as the first member of a child structure**. For example:
+
+```c
+struct Derived {
+    struct Base base;   // must be first
+    int extra_field;
+};
+```
+
+Because `Base` is the first member, a `Derived*` pointer can be safely cast to `Base*`, mimicking C++‑style inheritance and enabling code reuse.
+
+
+### Polymorphism
+
+
+In C, there is no built‑in virtual dispatch, so polymorphism is simulated by **function‑pointer tables**.
+
+Each “class” (base and derived) has a structure of function pointers that correspond to the same set of methods, but point to different implementations:
+
+```c
+struct BaseVtable {
+    void (*draw)(struct Base *this);
+};
+
+struct Base {
+    struct BaseVtable *vtable;
+    int x, y;
+};
+
+struct Derived {
+    struct Base base;
+    int color;
+};
+```
+
+By keeping the **layout and order** of these function‑pointer tables aligned, a base‑class pointer pointing to a derived‑class object can call the correct “overridden” function. If the vtable layouts are misaligned, the program will typically crash at runtime.
+
+However, this simulation has a drawback: each “vtable” is just a block of memory containing function pointers, and not automatically managed like C++’s language‑supplied vtables. If many virtual methods are simulated, maintenance becomes more complex.
+
+To emulate polymorphism correctly, the function‑pointer variables in the parent and child must be **bit‑wise compatible and layout‑aligned**; otherwise, when a base‑class pointer points to a derived‑class object, the program may behave incorrectly or crash.
+
+Example code: [c_examp.c](./c_examp.c)

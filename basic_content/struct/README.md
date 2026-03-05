@@ -1,43 +1,52 @@
-# 一文搞懂C和C++中struct
+# One Article to Understand `struct` in C and C++
 
-## 关于作者：
 
-个人公众号：
+## About the Author
+
+
+Personal WeChat official account:
+
 
 ![](../img/wechat.jpg)
 
-## 1.C中struct
 
-- 在C中struct只单纯的用作数据的复合类型，也就是说，在结构体声明中只能将数据成员放在里面，而不能将函数放在里面。 
-- 在C结构体声明中不能使用C++访问修饰符，如：public、protected、private 而在C++中可以使用。
-- 在C中定义结构体变量，如果使用了下面定义必须加struct。
-- C的结构体不能继承（没有这一概念）。
-- 若结构体的名字与函数名相同，可以正常运行且正常的调用！例如：可以定义与 struct Base 不冲突的 void Base() {}。
+## 1. `struct` in C
 
-完整案例：
+
+In C, `struct` is merely a **composite data type** used to group variables together. Key characteristics:
+
+- A C `struct` can contain **only data members**, not functions.
+- C‑style `struct` declarations cannot use C++ access specifiers such as `public`, `protected`, or `private` (these are not allowed).
+- In C, when you declare a variable of a `struct` type, you must write `struct` explicitly, for example: `struct Base base;`.
+- C `struct` types **cannot inherit** from other types (inheritance is not a concept in C).
+- A `struct` name can be the same as a function name; both can coexist and be used normally. For example, you can define a function `void Base() {}` even if there is a `struct Base`.
+
+
+Complete example:
 
 ```c
-#include<stdio.h>
+#include <stdio.h>
 
 struct Base {            // public
-    int v1; 
-//    public:      //error
-        int v2; 
+    int v1;
+//    public:      // error
+        int v2;
     //private:
-        int v3; 
-    //void print(){       // c中不能在结构体中嵌入函数
+        int v3;
+    //void print(){       // C cannot contain functions inside a struct
     //    printf("%s\n","hello world");
-    //};    //error!
+    //};    // error!
 };
 
 void Base(){
     printf("%s\n","I am Base func");
 }
-//struct Base base1;  //ok
-//Base base2; //error
+//struct Base base1;  // ok
+//Base base2; // error
+
 int main() {
     struct Base base;
-    base.v1=1;
+    base.v1 = 1;
     //base.print();
     printf("%d\n",base.v1);
     Base();
@@ -45,89 +54,96 @@ int main() {
 }
 ```
 
-最后输出：
+Output:
 
 ```
 1
 I am Base func
 ```
 
-完整代码见：[struct_func.c](./struct_func.c)
+Full code: [struct_func.c](./struct_func.c)
 
-## 2.C++中struct
 
-与C对比如下：
+## 2. `struct` in C++
 
-- C++结构体中不仅可以定义数据，还可以定义函数。
-- C++结构体中可以使用访问修饰符，如：public、protected、private 。
-- C++结构体使用可以直接使用不带struct。
-- C++继承
-- 若结构体的名字与函数名相同，可以正常运行且正常的调用！但是定义结构体变量时候只能用带struct的！
 
-例如：
+Compared with C, C++ `struct` is much more powerful:
 
-> 情形1：不适用typedef定义结构体别名
+- A C++ `struct` can contain both **data members and functions**.
+- C++ `struct` can use access specifiers such as `public`, `protected`, and `private`.  
+  (By default, all members of a `struct` are `public`.)
+- In C++, you can declare a `struct` variable **without** writing the `struct` keyword, e.g., `Base base;`.
+- C++ `struct` supports **inheritance**.
+- If a `struct` name is the same as a function name, they can coexist, but when declaring a variable of that type you must use `struct` if the name is also used as a function.
 
-未添加同名函数前：
 
-```c++
+Examples:
+
+### Case 1: No `typedef` alias
+
+Without an identically‑named function:
+
+```cpp
 struct Student {
-    
+
 };
-//Student(){}
-struct Student s; //ok
-Student s;  //ok
+//Student(){}   // function
+struct Student s; // ok
+Student s;       // ok
 ```
 
-添加同名函数后：
+After adding a function with the same name:
 
-```c++
+```cpp
 struct Student {
-    
+
 };
 Student(){}
-struct Student s; //ok
-Student s;  //error
+struct Student s; // ok
+Student s;        // error: Student now refers to the function
 ```
 
-> 情形二：使用typedef定义结构体别名
 
-```c++
-typedef struct Base1 {         
+### Case 2: Using `typedef` to alias the `struct`
+
+```cpp
+typedef struct Base1 {
     int v1;
     int v3;
-    public:     //显示声明public
+public:        // explicitly declare public
     int v2;
-    void print(){       
+    void print(){
         printf("%s\n","hello world");
-    };    
-}B;
-//void B() {}  //error! 符号 "B" 已经被定义为一个 "struct Base1" 的别名
+    };
+} B;
+
+//void B() {}  // error! "B" is already an alias for struct Base1
 ```
 
-> 前三种案例
 
-```c++
-#include<iostream>
-#include<stdio.h>
+### Basic C++ `struct` with functions
 
-struct Base {         
+```cpp
+#include <iostream>
+#include <stdio.h>
+
+struct Base {
     int v1;
-//    private:   //error!
+//    private:   // error in C
         int v3;
-    public:     //显示声明public
-        int v2;
-    void print(){       
+public:        // explicitly declare public
+    int v2;
+    void print(){
         printf("%s\n","hello world");
-    };    
+    };
 };
 
 int main() {
-    struct Base base1;  //ok
-    Base base2; //ok
+    struct Base base1;  // ok
+    Base base2;         // ok
     Base base;
-    base.v1=1;
-    base.v3=2;
+    base.v1 = 1;
+    base.v3 = 2;
     base.print();
     printf("%d\n",base.v1);
     printf("%d\n",base.v3);
@@ -135,76 +151,83 @@ int main() {
 }
 ```
 
-完整代码见：[struct_func.cpp](struct_func.cpp)
+Full code: [struct_func.cpp](struct_func.cpp)
 
-> 继承案例
 
-```c++
-#include<iostream>
-#include<stdio.h>
-struct Base {         
+### Inheritance example
+
+```cpp
+#include <iostream>
+#include <stdio.h>
+
+struct Base {
     int v1;
-//    private:   //error!
+//    private:   // error in C
         int v3;
-    public:   //显示声明public
-        int v2;
-    virtual void print(){       
+public:        // explicitly declare public
+    int v2;
+    virtual void print(){
         printf("%s\n","Base");
-    };    
+    };
 };
-struct Derived:Base {         
 
-    public:
-        int v2;
-    void print(){       
+struct Derived : Base {
+
+public:
+    int v2;
+    void print(){
         printf("%s\n","Derived");
-    };    
+    };
 };
+
 int main() {
-    Base *b=new Derived();
+    Base *b = new Derived();
     b->print();
     return 0;
 }
 ```
 
-完整代码见：[ext_struct_func.cpp](./ext_struct_func.cpp)
+Full code: [ext_struct_func.cpp](./ext_struct_func.cpp)
 
-> 同名函数
 
-```c++
-#include<iostream>
-#include<stdio.h>
+### Name collision with function
 
-struct Base {         
+```cpp
+#include <iostream>
+#include <stdio.h>
+
+struct Base {
     int v1;
-//    private:   //error!
+//    private:   // error in C
         int v3;
-    public:     //显示声明public
-        int v2;
-    void print(){       
+public:        // explicitly declare public
+    int v2;
+    void print(){
         printf("%s\n","hello world");
-    };    
+    };
 };
 
-typedef struct Base1 {         
+typedef struct Base1 {
     int v1;
-//    private:   //error!
+//    private:   // error in C
         int v3;
-    public:     //显示声明public
-        int v2;
-    void print(){       
+public:        // explicitly declare public
+    int v2;
+    void print(){
         printf("%s\n","hello world");
-    };    
-}B;
+    };
+} B;
+
 void Base(){
     printf("%s\n","I am Base func");
 }
-//void B() {}  //error! 符号 "B" 已经被定义为一个 "struct Base1" 的别名
+//void B() {}  // error! "B" is already an alias for struct Base1
+
 int main() {
-    struct Base base;  //ok
-    //Base base1;  // error!
-    base.v1=1;
-    base.v3=2;
+    struct Base base;  // ok
+    //Base base1;      // error, because "Base" is a function here
+    base.v1 = 1;
+    base.v3 = 2;
     base.print();
     printf("%d\n",base.v1);
     printf("%d\n",base.v3);
@@ -212,16 +235,20 @@ int main() {
     return 0;
 }
 ```
-完整代码见：[struct_func_func.cpp](./struct_func_func.cpp)
 
-## 3.总结
+Full code: [struct_func_func.cpp](./struct_func_func.cpp)
 
-### C和C++中的Struct区别
 
-| C                                                      | C++                                                          |
-| ------------------------------------------------------ | ------------------------------------------------------------ |
-| 不能将函数放在结构体声明                               | 能将函数放在结构体声明                                       |
-| 在C结构体声明中不能使用C++访问修饰符。                 | public、protected、private 在C++中可以使用。                 |
-| 在C中定义结构体变量，如果使用了下面定义必须加struct。  | 可以不加struct                                               |
-| 结构体不能继承（没有这一概念）。                       | 可以继承                                                     |
-| 若结构体的名字与函数名相同，可以正常运行且正常的调用！ | 若结构体的名字与函数名相同，使用结构体，只能使用带struct定义！ |
+## 3. Summary
+
+
+### Differences between `struct` in C and in C++
+
+
+| C `struct`                                        | C++ `struct`                                                   |
+|---------------------------------------------------|----------------------------------------------------------------|
+| Cannot contain functions.                         | Can contain both data and functions.                          |
+| Cannot use C++ access specifiers `public`, etc.   | Can use `public`, `protected`, `private`.                     |
+| Must write `struct` to declare variables.         | Can declare variables without `struct`.                       |
+| No inheritance.                                   | Supports inheritance.                                         |
+| Can share names with functions normally.          | If a `struct` name collides with a function, variables must be declared with `struct`. |

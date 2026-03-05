@@ -1,138 +1,148 @@
-# decltype那些事
+# Stories About `decltype`
 
-## 关于作者：
 
-个人公众号：
+## About the Author
+
+
+Personal WeChat official account:
+
 
 ![](../img/wechat.jpg)
 
-## 1.基本使用
-decltype的语法是:
 
+## 1. Basic usage
+
+
+The syntax of `decltype` is:
+
+```text
+decltype(expression)
 ```
-decltype (expression)
-```
 
-这里的括号是必不可少的,decltype的作用是“查询表达式的类型”，因此，上面语句的效果是，返回 expression 表达式的类型。注意，decltype 仅仅“查询”表达式的类型，并不会对表达式进行“求值”。
+The parentheses are mandatory. The purpose of `decltype` is to **query the type of an expression**, so the above statement returns the type of `expression`. Note that `decltype` only **queries** the type and does **not evaluate** the expression.
 
 
-### 1.1 推导出表达式类型
+### 1.1 Deduce the type of an expression
 
-```
+
+```cpp
 int i = 4;
-decltype(i) a; //推导结果为int。a的类型为int。
+decltype(i) a; // deduced as int; a has type int
 ```
 
-### 1.2 与using/typedef合用，用于定义类型。
 
-```c++
-using size_t = decltype(sizeof(0));//sizeof(a)的返回值为size_t类型
+### 1.2 Working with `using` / `typedef` for type definitions
+
+
+```cpp
+using size_t = decltype(sizeof(0));                                   // sizeof(…) returns size_t
 using ptrdiff_t = decltype((int*)0 - (int*)0);
 using nullptr_t = decltype(nullptr);
-vector<int >vec;
+
+std::vector<int> vec;
 typedef decltype(vec.begin()) vectype;
-for (vectype i = vec.begin; i != vec.end(); i++)
-{
-//...
+
+for (vectype i = vec.begin(); i != vec.end(); ++i) {
+    // ...
 }
 ```
 
-这样和auto一样，也提高了代码的可读性。
+Just like `auto`, this improves code readability by letting the compiler compute the type from an expression.
 
-### 1.3 重用匿名类型
 
-在C++中，我们有时候会遇上一些匿名类型，如:
+### 1.3 Reuse of anonymous types
 
-```c++
-struct 
+
+In C++ we sometimes encounter **anonymous types**, such as:
+
+```cpp
+struct
 {
-    int d ;
+    int d;
     double b;
-}anon_s;
+} anon_s;
 ```
 
-而借助decltype，我们可以重新使用这个匿名的结构体：
+With `decltype`, we can reuse this anonymous structure:
 
-```c++
-decltype(anon_s) as ;//定义了一个上面匿名的结构体
+```cpp
+decltype(anon_s) as;  // declares another variable of the same anonymous struct type
 ```
 
-### 1.4 泛型编程中结合auto，用于追踪函数的返回值类型
 
-这也是decltype最大的用途了。
+### 1.4 Generic programming: combining `auto` and `decltype` for return‑type deduction
 
-```c++
+
+This is probably the most important use of `decltype`:
+
+```cpp
 template <typename T>
-auto multiply(T x, T y)->decltype(x*y)
+auto multiply(T x, T y) -> decltype(x * y)
 {
-	return x*y;
+    return x * y;
 }
 ```
 
-完整代码见：[decltype.cpp](decltype.cpp)
+The `-> decltype(x*y)` part lets the function return the type of `x * y` without the caller having to specify it manually.
 
-## 2.判别规则
+Full code: [decltype.cpp](decltype.cpp)
 
-对于decltype(e)而言，其判别结果受以下条件的影响：
 
-如果e是一个没有带括号的标记符表达式或者类成员访问表达式，那么的decltype（e）就是e所命名的实体的类型。此外，如果e是一个被重载的函数，则会导致编译错误。
-否则 ，假设e的类型是T，如果e是一个将亡值，那么decltype（e）为T&&
-否则，假设e的类型是T，如果e是一个左值，那么decltype（e）为T&。
-否则，假设e的类型是T，则decltype（e）为T。
+## 2. Deduction rules
 
-标记符指的是除去关键字、字面量等编译器需要使用的标记之外的程序员自己定义的标记，而单个标记符对应的表达式即为标记符表达式。例如：
-```c++
-int arr[4]
+
+For `decltype(e)`, the result depends on the following rules:
+
+1. If `e` is an **unparenthesized name (identifier) expression** or a **class member access** expression, then `decltype(e)` is the type of the entity that `e` names.  
+   If `e` names an **overloaded function**, the program is ill‑formed (compile error).
+
+2. Otherwise, suppose `e` has type `T`:  
+   - If `e` is an **xvalue** (an expiring value, such as a function returning `T&&`), then `decltype(e)` is `T&&`.  
+   - If `e` is an **lvalue**, then `decltype(e)` is `T&`.  
+   - Otherwise, `decltype(e)` is `T` (the plain type of `e`).
+
+An **identifier** here means a programmer‑defined name (excluding keywords and literals); a single identifier by itself forms an **identifier expression**. For example:
+
+```cpp
+int arr; [stackoverflow](https://stackoverflow.com/questions/9259451/size-of-class-c/9259489)
 ```
-则arr为一个标记符表达式，而arr[3]+0不是。
 
-举例如下：
+Here, `arr` is an identifier expression; `arr [dominikgrabiec](https://www.dominikgrabiec.com/posts/2025/02/01/how_to_layout_data_in_classes.html) + 0` is not.
 
-```c++
+Examples:
+
+```cpp
 int i = 4;
-int arr[5] = { 0 };
-int *ptr = arr;
-struct S{ double d; }s ;
+int arr = {0}; [cnblogs](https://www.cnblogs.com/scw2901/p/4452620.html)
+int* ptr = arr;
+struct S { double d; } s;
 void Overloaded(int);
-void Overloaded(char);//重载的函数
-int && RvalRef();
+void Overloaded(char);        // overloaded function
+int&& RvalRef();
 const bool Func(int);
 
-//规则一：推导为其类型
-decltype (arr) var1; //int[] 标记符表达式
+// Rule 1: identifier / member access -> plain type
+decltype(arr) var1;            // int[]: array of int  (identifier expression)
+decltype(ptr) var2;            // int*                (identifier expression)
+decltype(s.d) var3;            // double              (member access expression)
+// decltype(Overloaded) var4;  // error: overloaded function name
 
-decltype (ptr) var2;//int *  标记符表达式
+// Rule 2: xvalue -> T&&
+decltype(RvalRef()) var5 = 1;  // int&&
 
-decltype(s.d) var3;//doubel 成员访问表达式
+// Rule 3: lvalue -> T&
+decltype((i)) var6 = i;        // int&; (i) is an lvalue expression
+decltype(true ? i : i) var7 = i; // int&; the conditional yields an lvalue
+decltype(++i) var8 = i;        // int&; ++i returns an lvalue
+decltype(arr) var9 = i;     // int&; subscript returns an lvalue [cnblogs](https://www.cnblogs.com/scw2901/p/4452620.html)
+decltype(*ptr) var10 = i;      // int&; dereference returns an lvalue
+decltype("hello") var11 = "hello"; // const char(&): character string literal is a const lvalue [dominikgrabiec](https://www.dominikgrabiec.com/posts/2025/02/01/how_to_layout_data_in_classes.html)
 
-//decltype(Overloaded) var4;//重载函数。编译错误。
-
-//规则二：将亡值。推导为类型的右值引用。
-
-decltype (RvalRef()) var5 = 1;
-
-//规则三：左值，推导为类型的引用。
-
-decltype ((i))var6 = i;     //int&
-
-decltype (true ? i : i) var7 = i; //int&  条件表达式返回左值。
-
-decltype (++i) var8 = i; //int&  ++i返回i的左值。
-
-decltype(arr[5]) var9 = i;//int&. []操作返回左值
-
-decltype(*ptr)var10 = i;//int& *操作返回左值
-
-decltype("hello")var11 = "hello"; //const char(&)[9]  字符串字面常量为左值，且为const左值。
-
-
-//规则四：以上都不是，则推导为本类型
-
-decltype(1) var12;//const int
-
-decltype(Func(1)) var13=true;//const bool
-
-decltype(i++) var14 = i;//int i++返回右值
+// Rule 4: otherwise, deduce as plain T
+decltype(1) var12;             // int (prvalue) -> int
+decltype(Func(1)) var13 = true; // const bool
+decltype(i++) var14 = i;       // int; i++ returns int as prvalue
 ```
 
-学习参考：https://www.cnblogs.com/QG-whz/p/4952980.html
+For further reading, see:  
+https://www.cnblogs.com/QG-whz/p/4952980.html
