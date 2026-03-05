@@ -1,7 +1,7 @@
 /**
  * @file func_pointer.cpp
- * @brief 函数指针的使用！
- * @author 光城
+ * @brief Usage of function pointers!
+ * @author Guangcheng
  * @version v1
  * @date 2019-07-20
  */
@@ -11,21 +11,24 @@ using namespace std;
 
 /**
  * @brief
- * 定义了一个变量pFun，这个变量是个指针，指向返回值为空和参数为int的函数的指针！
+ * Declares a variable `pFun`: this variable is a pointer to a function that
+ * returns `void` and takes one `int` parameter!
  */
 void (*pFun)(int);
 
 /**
- * @brief 代表一种新类型，不是变量！所以与上述的pFun不一样！
+ * @brief This defines a new type alias, not a variable!
+ *        So it is different from the above `pFun`.
  */
 typedef void (*func)(void);
 
 void myfunc(void) { cout << "asda" << endl; }
 
 void glFun(int a) { cout << a << endl; }
+
 int main() {
-  func pfun = myfunc; /*赋值*/
-  pfun();             /*调用*/
-  pFun = glFun;
-  (*pFun)(2);
+    func pfun = myfunc;   /* assignment */
+    pfun();               /* call via function pointer */
+    pFun = glFun;
+    (*pFun)(2);           /* call the function pointed to by `pFun` */
 }

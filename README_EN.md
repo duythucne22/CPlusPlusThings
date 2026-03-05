@@ -407,7 +407,7 @@ To be updated…
 - [Chapter 2](./concurrency/concurrency_v1/chapter2)
 
 
-Learning resource: https://downdemo.gitbook.io/cpp-concurrency-in-action-2ed/
+Learning resource: https://github.com/forhappy/Cplusplus-Concurrency-In-Practice
 
 
 #### Multithreading and Multiprocessing

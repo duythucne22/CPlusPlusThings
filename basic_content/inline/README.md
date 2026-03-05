@@ -1,101 +1,112 @@
-# inline那些事
+# Stories About `inline`
 
-## 关于作者：
 
-个人公众号：
+## About the Author
+
+
+Personal WeChat official account:
+
 
 ![](../img/wechat.jpg)
 
-## 1.类中内联
 
-头文件中声明方法
+## 1. Inline in classes
 
-```c++
 
+Declare methods in the header file:
+
+```cpp
 class A
 {
 public:
-    void f1(int x); 
+    void f1(int x);
 
     /**
-     * @brief 类中定义了的函数是隐式内联函数,声明要想成为内联函数，必须在实现处(定义处)加inline关键字。
+     * @brief Functions defined inside the class are implicitly inline.
+     *        For a declaration to become an inline function, the `inline` keyword
+     *        must be added at the definition/implementation site.
      *
      * @param x
      * @param y
      */
-    void Foo(int x,int y) ///< 定义即隐式内联函数！
+    void Foo(int x, int y) ///< Defined here → implicitly inline!
     {
-    
     };
-    void f2(int x); ///< 声明后，要想成为内联函数，必须在定义处加inline关键字。  
+
+    void f2(int x); ///< To become inline, the definition must use the `inline` keyword.
 };
 ```
 
-实现文件中定义内联函数：
 
-```c++
+Define inline functions in the implementation file:
+
+```cpp
 #include <iostream>
 #include "inline.h"
 
 using namespace std;
 
 /**
- * @brief inline要起作用,inline要与函数定义放在一起,inline是一种“用于实现的关键字,而不是用于声明的关键字”
+ * @brief For inline to take effect, the `inline` keyword must appear with the function definition.
+ *        `inline` is a "keyword used at the implementation site", not at the declaration site.
  *
  * @param x
  * @param y
  *
- * @return 
+ * @return
  */
-int Foo(int x,int y);  // 函数声明
-inline int Foo(int x,int y) // 函数定义
+int Foo(int x, int y);      // function declaration
+inline int Foo(int x, int y) // function definition
 {
-    return x+y;
+    return x + y;
 }
 
-// 定义处加inline关键字，推荐这种写法！
-inline void A::f1(int x){
-
+// Add `inline` at the definition; this is the recommended style!
+inline void A::f1(int x)
+{
 }
 
 int main()
 {
-
-    
-    cout<<Foo(1,2)<<endl;
-
+    cout << Foo(1, 2) << endl;
 }
-/**
- * 编译器对 inline 函数的处理步骤
- * 将 inline 函数体复制到 inline 函数调用点处；
- * 为所用 inline 函数中的局部变量分配内存空间；
- * 将 inline 函数的的输入参数和返回值映射到调用方法的局部变量空间中；
- * 如果 inline 函数有多个返回点，将其转变为 inline 函数代码块末尾的分支（使用 GOTO）。
- */
 
+/**
+ * Compiler steps for inline functions:
+ * 1. Copy the inline function body to each call site.
+ * 2. Allocate memory for all local variables inside the inline function.
+ * 3. Map the input parameters and return value of the inline function to the caller's stack frame.
+ * 4. If the inline function has multiple return points, transform them into branches at the end of the block (using GOTO‑like jumps).
+ */
 ```
 
-内联能提高函数效率，但并不是所有的函数都定义成内联函数！内联是以代码膨胀(复制)为代价，仅仅省去了函数调用的开销，从而提高函数的执行效率。
 
-- 如果执行函数体内代码的时间相比于函数调用的开销较大，那么效率的收获会更少！
+Inlining can improve function efficiency, but not all functions should be made inline.  
+Inlining trades code bloat (copying) for the elimination of the function‑call overhead, only improving execution speed.  
 
-- 另一方面，每一处内联函数的调用都要复制代码，将使程序的总代码量增大，消耗更多的内存空间。
+- If the time spent executing the function body is large compared to the cost of a function call, the efficiency gain from inlining is small.  
+- Moreover, every call site of an inline function duplicates the code, increasing the total code size and memory usage.  
 
-以下情况不宜用内联：
 
-（1）如果函数体内的代码比较长，使得内联将导致内存消耗代价比较高。
+Inline functions are **not recommended** in the following cases:
 
-（2）如果函数体内出现循环，那么执行函数体内代码的时间要比函数调用的开销大。
+(1) If the function body is long, so that inlining would cause a high memory cost.  
+(2) If the function body contains loops, so that the time spent executing the body is much larger than the call overhead.  
 
-## 2.虚函数（virtual）可以是内联函数（inline）吗？
 
-- 虚函数可以是内联函数，内联是可以修饰虚函数的，但是当虚函数表现多态性的时候不能内联。
-- 内联是在编译期建议编译器内联，而虚函数的多态性在运行期，编译器无法知道运行期调用哪个代码，因此虚函数表现为多态性时（运行期）不可以内联。
-- `inline virtual` 唯一可以内联的时候是：编译器知道所调用的对象是哪个类（如 `Base::who()`），这只有在编译器具有实际对象而不是对象的指针或引用时才会发生。
+## 2. Can virtual functions be inline functions?
 
-```c++
-#include <iostream>  
+
+- Virtual functions **can** be inline; `inline` is allowed on virtual functions.  
+  However, when the virtual function exhibits polymorphism, it **cannot** be inlined.  
+- Inlining is a compile‑time hint to the compiler, but virtual dispatch (polymorphism) happens at runtime.  
+  The compiler cannot know in advance which derived function will be called, so a virtual call that is truly polymorphic cannot be inlined.  
+- The only case where `inline virtual` can actually be inlined is when the compiler knows the exact class of the object (for example, `Base::who()`), which happens only when the compiler sees a concrete object, not a pointer or a reference.  
+
+```cpp
+#include <iostream>
 using namespace std;
+
 class Base
 {
 public:
@@ -103,12 +114,14 @@ public:
     {
         cout << "I am Base\n";
     }
+
     virtual ~Base() {}
 };
+
 class Derived : public Base
 {
 public:
-    inline void who()  // 不写inline时隐式内联
+    inline void who()  // implicit inline even without writing `inline`
     {
         cout << "I am Derived\n";
     }
@@ -116,22 +129,22 @@ public:
 
 int main()
 {
-    // 此处的虚函数 who()，是通过类（Base）的具体对象（b）来调用的，编译期间就能确定了，所以它可以是内联的，但最终是否内联取决于编译器。 
+    // The virtual function `who()` is called on a concrete object `b` of type `Base`.
+    // At compile time the compiler knows which function will be called,
+    // so it *may* inline it (but the final decision depends on the compiler).
     Base b;
     b.who();
 
-    // 此处的虚函数是通过指针调用的，呈现多态性，需要在运行时期间才能确定，所以不能为内联。  
+    // The virtual function is called via a pointer, showing polymorphism.
+    // The actual function to call is determined at runtime, so it cannot be inlined.
     Base *ptr = new Derived();
     ptr->who();
 
-    // 因为Base有虚析构函数（virtual ~Base() {}），所以 delete 时，会先调用派生类（Derived）析构函数，再调用基类（Base）析构函数，防止内存泄漏。
+    // Because Base has a virtual destructor, `delete` will first call Derived's destructor,
+    // then Base's destructor, preventing memory leaks.
     delete ptr;
     ptr = nullptr;
 
-    
     return 0;
-} 
+}
 ```
-
-
-

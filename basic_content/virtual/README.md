@@ -1,102 +1,124 @@
-# virtual那些事
+# Stories About `virtual`
 
-## 关于作者：
 
-个人公众号：
+## About the Author
+
+
+Personal WeChat official account:
+
 
 ![](../img/wechat.jpg)
 
-## 1.虚函数与运行多态
 
-对应的代码：[emp.cpp](./set1/emp.cpp)
+## 1. Virtual functions and runtime polymorphism
 
-**虚函数的调用取决于指向或者引用的对象的类型，而不是指针或者引用自身的类型。**
 
-## 2.vptr与vtable
+Corresponding code: [emp.cpp](./set1/emp.cpp)
 
-见[vptr_vtable那些事](../vptr_vtable)
 
-## 3.虚函数中默认参数
+**The version of a virtual function that is called depends on the actual type of the object pointed to or referenced, not on the type of the pointer or reference itself.**
 
-对应的代码：[default_arg.cpp](./set2/default_arg.cpp)
 
-**默认参数是静态绑定的，虚函数是动态绑定的。 默认参数的使用需要看指针或者引用本身的类型，而不是对象的类型**。
+## 2. vptr and vtable
 
-## 4.可以不可以
 
-（1） **静态函数可以声明为虚函数吗？**
+See [vptr_vtable那些事](../vptr_vtable).
 
-原因主要有两方面：
 
-**静态函数不可以声明为虚函数，同时也不能被const 和 volatile关键字修饰**
+## 3. Virtual functions with default arguments
 
-static成员函数不属于任何类对象或类实例，所以即使给此函数加上virutal也是没有任何意义
 
-虚函数依靠vptr和vtable来处理。vptr是一个指针，在类的构造函数中创建生成，并且只能用this指针来访问它，静态成员函数没有this指针，所以无法访问vptr。
+Corresponding code: [default_arg.cpp](./set2/default_arg.cpp)
 
-代码学习：[static_error.cpp  ](./set3/static_error.cpp  )
 
-（2）**构造函数可以为虚函数吗？**
+**Default arguments are statically bound, while virtual functions are dynamically bound. The choice of default arguments depends on the type of the pointer or reference, not on the type of the underlying object.**
 
-构造函数不可以声明为虚函数。同时除了inline|explicit之外，构造函数不允许使用其它任何关键字。
 
-为什么构造函数不可以为虚函数？
+## 4. Can / cannot be virtual
 
-尽管虚函数表vtable是在编译阶段就已经建立的，但指向虚函数表的指针vptr是在运行阶段实例化对象时才产生的。 如果类含有虚函数，编译器会在构造函数中添加代码来创建vptr。 问题来了，如果构造函数是虚的，那么它需要vptr来访问vtable，可这个时候vptr还没产生。 因此，构造函数不可以为虚函数。
 
-我们之所以使用虚函数，是因为需要在信息不全的情况下进行多态运行。而构造函数是用来初始化实例的，实例的类型必须是明确的。 因此，构造函数没有必要被声明为虚函数。
+### (1) Can a static function be declared as virtual?
 
-代码学习：
+**Static member functions cannot be declared as virtual, and also cannot be modified by `const` or `volatile`.**  
 
-- [copy_consrtuct.cpp](./set3/copy_consrtuct.cpp) 
+There are two main reasons:
 
-- [vir_con.cpp](./set3/vir_con.cpp) 
+- A `static` member function does not belong to any object or class instance, so it is meaningless to try to make it virtual.
+- Virtual functions rely on `vptr` and `vtable` for dispatch. The `vptr` is a pointer that is set up in the constructor and accessed via `this`. Static functions have no `this` pointer, so they cannot access or use `vptr`.
 
-（3）**析构函数可以为虚函数吗？**
+Code to study: [static_error.cpp](./set3/static_error.cpp)
 
-**析构函数可以声明为虚函数。如果我们需要删除一个指向派生类的基类指针时，应该把析构函数声明为虚函数。 事实上，只要一个类有可能会被其它类所继承， 就应该声明虚析构函数(哪怕该析构函数不执行任何操作)。**
 
-代码学习：
+### (2) Can a constructor be virtual?
+
+**Constructors cannot be declared as virtual.**  
+Besides `inline` and `explicit`, constructors are not allowed to use any other specifiers.
+
+Why can’t a constructor be virtual?
+
+- Although the `vtable` is generated at compile time, the `vptr` (pointer to `vtable`) is created at runtime when an object is instantiated.  
+- If a class has virtual functions, the compiler injects code into the constructor to initialize `vptr`.  
+- If the constructor itself were virtual, it would need `vptr` to access the `vtable`, but `vptr` does not yet exist, creating a circular dependency.
+
+We use virtual functions when we have incomplete information at runtime and want polymorphic behavior. However, a constructor is used to initialize an object whose type is already clearly known, so there is no need to make it virtual.
+
+Code to study:
+
+- [copy_consrtuct.cpp](./set3/copy_consrtuct.cpp)
+- [vir_con.cpp](./set3/vir_con.cpp)
+
+
+### (3) Can a destructor be virtual?
+
+**Destructors can be declared as virtual.**  
+If you ever need to delete a base‑class pointer that points to a derived‑class object, the destructor should be declared virtual. In fact, **whenever a class may be inherited by others, it should declare a virtual destructor (even if that destructor does nothing)**.
+
+Code to study:
 
 - [full_virde.cpp](./set3/full_virde.cpp)
+- [vir_de.cpp](./set3/vir_de.cpp)
 
-- [vir_de.cpp ](./set3/vir_de.cpp)      
 
-（4）**虚函数可以为私有函数吗？**
+### (4) Can a virtual function be private?
 
-- 基类指针指向继承类对象，则调用继承类对象的函数；
-- int main()必须声明为Base类的友元，否则编译失败。 编译器报错： ptr无法访问私有函数。 当然，把基类声明为public， 继承类为private，该问题就不存在了。
+- When a base‑class pointer points to a derived‑class object, it still calls the derived‑class’s override of that function (through virtual dispatch).  
+- The `main` function (or the caller) must be declared as a friend of the `Base` class, or else the code will fail to compile because the derived‑class pointer cannot access the private virtual function.  
+- Alternatively, if the base‑class function is declared `public` and the derived‑class function is `private`, the problem goes away and the virtual call works normally.
 
-代码学习：
+Code to study:
 
 - [virtual_function.cpp](./set3/virtual_function.cpp)
 - [virtual_function1.cpp](./set3/virtual_function1.cpp)
 
-（5）**虚函数可以被内联吗？**
 
-**通常类成员函数都会被编译器考虑是否进行内联。 但通过基类指针或者引用调用的虚函数必定不能被内联。 当然，实体对象调用虚函数或者静态调用时可以被内联，虚析构函数的静态调用也一定会被内联展开。**
+### (5) Can a virtual function be inline?
 
-- 虚函数可以是内联函数，内联是可以修饰虚函数的，但是当虚函数表现多态性的时候不能内联。
-- 内联是在编译器建议编译器内联，而虚函数的多态性在运行期，编译器无法知道运行期调用哪个代码，因此虚函数表现为多态性时（运行期）不可以内联。
-- `inline virtual` 唯一可以内联的时候是：编译器知道所调用的对象是哪个类（如 `Base::who()`），这只有在编译器具有实际对象而不是对象的指针或引用时才会发生。
+**Ordinary (non‑`virtual`) class member functions can be inlined by the compiler, but virtual functions called via pointers or references cannot.**
 
-代码学习：
+- Virtual functions **can** be declared `inline`, but they **cannot be inlined** when they are used in a polymorphic context (via base‑class pointers or references).  
+- Inlining is a compile‑time hint, whereas virtual dispatch is resolved at runtime. The compiler does not know at compile time which concrete function will be called, so it cannot inline such calls.  
+- `inline virtual` can only be inlined when the compiler knows the exact class of the object (e.g., `Base::who()` on a concrete `Base` object), which happens only when the object is used directly, not via a pointer or reference.
+
+Code to study:
 
 - [virtual_inline.cpp](./set3/virtual_inline.cpp)
-
 - [inline_virtual.cpp](./set3/inline_virtual.cpp)
 
-## 5.RTTI与dynamic_cast
 
-RTTI（Run-Time Type Identification)，通过运行时类型信息程序能够使用[基类](https://baike.baidu.com/item/%E5%9F%BA%E7%B1%BB/9589663)的[指针](https://baike.baidu.com/item/%E6%8C%87%E9%92%88/2878304)或引用来检查这些指针或引用所指的对象的实际[派生类](https://baike.baidu.com/item/%E6%B4%BE%E7%94%9F%E7%B1%BB)型。
+## 5. RTTI and `dynamic_cast`
 
-在面向对象程序设计中，有时我们需要在运行时查询一个对象是否能作为某种多态类型使用。与Java的instanceof，以及C#的as、is运算符类似，C++提供了dynamic_cast函数用于动态转型。相比C风格的强制类型转换和C++ reinterpret_cast，dynamic_cast提供了类型安全检查，是一种基于能力查询(Capability Query)的转换，所以在多态类型间进行转换更提倡采用dynamic_cast。
 
-代码学习：
+RTTI (Run‑Time Type Identification) allows a program to use a base‑class pointer or reference to examine the actual derived‑class type of the object pointed to or referenced.
+
+In object‑oriented programming, we sometimes need to query at runtime whether an object can be treated as a certain polymorphic type. Similar to Java’s `instanceof` or C#’s `is`/`as` operators, C++ provides `dynamic_cast` for dynamic type checking and type‑safe downcasts. Compared with C‑style casts and `reinterpret_cast`, `dynamic_cast` performs runtime type checking and is therefore recommended for safe conversions between polymorphic types.
+
+Code to study:
 
 - [rtti.cpp](./set4/rtti.cpp)
 - [warn_rtti.cpp](./set4/warn_rtti.cpp)
 
-## 6.纯虚函数和抽象类
 
-见[纯虚函数和抽象类那些事](../abstract)
+## 6. Pure virtual functions and abstract classes
+
+
+See [pure‑virtual functions and abstract classes](../abstract).

@@ -1,61 +1,76 @@
-# assert那些事
+# Stories About `assert`
 
-## 关于作者：
 
-个人公众号：
+## About the Author
+
+
+Personal WeChat official account:
+
 
 ![](../img/wechat.jpg)
 
 
 
-## 1.第一个断言案例
 
-断言，**是宏，而非函数**。
+## 1. First assertion example
 
-assert 宏的原型定义在 <assert.h>（C）、<cassert>（C++）中。其作用是如果它的条件返回错误，则终止程序执行。
 
-可以通过定义 `NDEBUG` 来关闭 assert，**但是需要在源代码的开头，include <assert.h> 之前。**
+An **assertion is a macro, not a function**.
+
+
+The prototype of the `assert` macro is defined in `<assert.h>` (C) and `<cassert>` (C++). Its purpose is to terminate the program if the condition it checks evaluates to false.
+
+
+You can turn off `assert` by defining the macro `NDEBUG`, **but this must be done before `#include <assert.h>` (or `<cassert>`) at the top of the source file**.
 
 ```c
 void assert(int expression);
 ```
 
-> 代码样例：[assert.c](./assert.c)
+
+> Code example: [assert.c](./assert.c)
+
 ```c
-#include <stdio.h> 
-#include <assert.h> 
+#include <stdio.h>
+#include <assert.h>
 
-int main() 
-{ 
-    int x = 7; 
+int main()
+{
+    int x = 7;
 
-    /*  Some big code in between and let's say x  
-    is accidentally changed to 9  */
-    x = 9; 
+    /*  Some big code in between and, let's say, x
+        is accidentally changed to 9  */
+    x = 9;
 
-    // Programmer assumes x to be 7 in rest of the code 
-    assert(x==7); 
+    // Programmer assumes x is 7 for the rest of the code
+    assert(x == 7);
 
     /* Rest of the code */
 
-    return 0; 
-} 
+    return 0;
+}
 ```
-输出：
-```c
+
+Output:
+
+```text
 assert: assert.c:13: main: Assertion 'x==7' failed.
 ```
-可以看到输出会把源码文件，行号错误位置，提示出来！
 
-## 2.断言与正常错误处理
+As you can see, the error message shows the source file, line number, and the failed condition, making it very useful for debugging.
 
-+ 断言主要用于检查逻辑上不可能的情况。
 
->例如，它们可用于检查代码在开始运行之前所期望的状态，或者在运行完成后检查状态。与正常的错误处理不同，断言通常在运行时被禁用。
+## 2. Assertions vs normal error handling
 
-+ 忽略断言，在代码开头加上：
-```c++
-#define NDEBUG          // 加上这行，则 assert 不可用
+
++ **Assertions are mainly used to check logically impossible situations.**
+
+> For example, they can be used to verify the expected state of the program at the beginning of a function, or the expected state at the end of a function. Unlike normal error‑handling mechanisms, assertions can be (and often are) disabled at runtime.
+
++ To **disable assertions globally**, add the following line at the top of the code:
+
+```cpp
+#define NDEBUG      // With this line, assert is disabled
 ```
 
-> 样例代码：[ignore_assert.c](./ignore_assert.c)
+> Sample code: [ignore_assert.c](./ignore_assert.c)

@@ -1,140 +1,167 @@
-# 纯虚函数和抽象类
+# Pure Virtual Functions and Abstract Classes
 
-## 关于作者：
 
-个人公众号：
+## About the Author
+
+
+Personal WeChat official account:
+
 
 ![](../img/wechat.jpg)
 
-## 1.纯虚函数与抽象类
 
-C++中的纯虚函数(或抽象函数)是我们没有实现的虚函数！我们只需声明它! 通过声明中赋值0来声明纯虚函数！
+## 1. Pure virtual functions and abstract classes
+
+
+In C++, a **pure virtual function** (or abstract function) is a virtual function for which **no implementation is provided**; we only declare it. A pure virtual function is declared by assigning **`= 0`** in its declaration:
+
 ```cpp
-// 抽象类
-Class A {
-public: 
-    virtual void show() = 0; // 纯虚函数
-    /* Other members */
-}; 
-```
-
- * 纯虚函数：没有函数体的虚函数
- * 抽象类：包含纯虚函数的类
-
-抽象类只能作为基类来派生新类使用，不能创建抽象类的对象,抽象类的指针和引用->由抽象类派生出来的类的对象！
-
-> 代码样例：[abstract_base.h](./abstract_base.h)、[pure_virtual.cpp](./pure_virtual.cpp)
-
-## 2.实现抽象类
-
-抽象类中：在成员函数内可以调用纯虚函数，在构造函数/析构函数内部不能使用纯虚函数。
-
-如果一个类从抽象类派生而来，它必须实现了基类中的所有纯虚函数，才能成为非抽象类。
-```cpp
-// A为抽象类
+// Abstract class
 class A {
 public:
-    virtual void f() = 0;  // 纯虚函数
-    void g(){ this->f(); }
-    A(){}  // 构造函数
-};
-
-class B : public A{
-public:
-    void f(){ cout<<"B:f()"<<endl;}  // 实现了抽象类的纯虚函数
+    virtual void show() = 0;  // pure virtual function
+    /* Other members */
 };
 ```
 
-> 代码样例：[abstract.cpp](./abstract.cpp)
 
-## 3.重要点
+- **Pure virtual function**: a virtual function that has no function body.  
+- **Abstract class**: a class that contains at least one pure virtual function.  
 
-- [纯虚函数使一个类变成抽象类](./interesting_facts1.cpp)
+
+An abstract class can only be used as a base class to derive new classes; **you cannot create objects of an abstract class**. However, you *can* create pointers and references to abstract classes that actually point to or refer to objects of classes derived from it.
+
+
+> Code examples: [abstract_base.h](./abstract_base.h), [pure_virtual.cpp](./pure_virtual.cpp)
+
+
+## 2. Implementing abstract classes
+
+
+In an abstract class, you are allowed to **call pure virtual functions inside member functions**, but you **cannot call pure virtual functions directly inside the constructor or destructor**.
+
+If a class derives from an abstract class, it must **implement all pure virtual functions** from the base class, or else it will also remain an abstract class.
+
 ```cpp
-// 抽象类至少包含一个纯虚函数
-class Base{
-public: 
-    virtual void show() = 0; // 纯虚函数
-    int getX() { return x; } // 普通成员函数
+// A is an abstract class
+class A {
+public:
+    virtual void f() = 0;      // pure virtual function
+    void g() { this->f(); }
+    A() {}                     // constructor
+};
+
+class B : public A {
+public:
+    void f() { cout << "B::f()" << endl; }
+                                   // implements the pure virtual function from the abstract base
+};
+```
+
+
+> Code example: [abstract.cpp](./abstract.cpp)
+
+
+## 3. Important points
+
+
+- [A pure virtual function makes a class abstract](./interesting_facts1.cpp)
+
+```cpp
+// An abstract class must contain at least one pure virtual function
+class Base {
+public:
+    virtual void show() = 0;   // pure virtual function
+    int getX() { return x; }  // normal member function
 
 private:
-     int x; 
-}; 
+    int x;
+};
 ```
 
-- [抽象类类型的指针和引用](./interesting_facts2.cpp)
-```cpp
-class Derived : public Base { 
-public: 
-    void show() { cout << "In Derived \n"; } // 实现抽象类的纯虚函数
-    Derived(){} // 构造函数
-}; 
 
-int main(void) 
-{ 
-    //Base b;  // error! 不能创建抽象类的对象
-    //Base *b = new Base(); error!
-    
-    Base *bp = new Derived(); // 抽象类的指针和引用 -> 由抽象类派生出来的类的对象
+- [Pointers and references of an abstract‑class type](./interesting_facts2.cpp)
+
+```cpp
+class Derived : public Base {
+public:
+    void show() { cout << "In Derived \n"; }  // implements the pure virtual function
+    Derived() {}                               // constructor
+};
+
+int main(void) {
+    // Base b;           // error! Cannot create an object of an abstract class
+    // Base *b = new Base(); // error!
+
+    Base *bp = new Derived(); // pointer/reference of abstract‑class type → object of a derived class
     bp->show();
-    return 0; 
+    return 0;
 }
 ```
 
-- [如果我们不在派生类中覆盖纯虚函数，那么派生类也会变成抽象类](./interesting_facts3.cpp)
-```cpp
-// Derived为抽象类
-class Derived: public Base 
-{ 
-public: 
-//    void show() {}
-}; 
-```
 
-- [抽象类可以有构造函数](./interesting_facts4.cpp)
-```cpp
-// 抽象类
-class Base { 
-    protected: 
-        int x; 
-    public: 
-        virtual void fun() = 0; 
-        Base(int i) { x = i; }  // 构造函数
-}; 
-// 派生类
-class Derived: public Base 
-{ 
-    int y; 
-public: 
-    Derived(int i, int j) : Base(i) { y = j; } // 构造函数
-    void fun() { cout << "x = " << x << ", y = " << y; }
-}; 
-```
+- [If pure virtual functions are not overridden in a derived class, that derived class remains abstract](./interesting_facts3.cpp)
 
-- [构造函数不能是虚函数，而析构函数可以是虚析构函数](./interesting_facts5.cpp)
 ```cpp
-// 抽象类
-class Base  {
+// Derived becomes an abstract class as well
+class Derived : public Base {
 public:
-    Base(){ cout << "Constructor: Base" << endl; }
-    virtual ~Base(){ cout << "Destructor : Base" << endl; }
-    
+//    void show() {}
+};
+```
+
+
+- [Abstract classes can have constructors](./interesting_facts4.cpp)
+
+```cpp
+// Abstract class
+class Base {
+protected:
+    int x;
+public:
+    virtual void fun() = 0;
+    Base(int i) { x = i; }   // constructor
+};
+
+// Derived class
+class Derived : public Base {
+    int y;
+public:
+    Derived(int i, int j) : Base(i) { y = j; }   // constructor
+    void fun() { cout << "x = " << x << ", y = " << y; }
+};
+```
+
+
+- [Constructors cannot be virtual, but destructors can be virtual destructors](./interesting_facts5.cpp)
+
+```cpp
+// Abstract class
+class Base {
+public:
+    Base() { cout << "Constructor: Base" << endl; }
+    virtual ~Base() { cout << "Destructor: Base" << endl; }
+
     virtual void func() = 0;
 };
 
-class Derived: public Base {
+class Derived : public Base {
 public:
-    Derived(){ cout << "Constructor: Derived" << endl; }
-    ~Derived(){ cout << "Destructor : Derived" << endl;}
-    
-    void func(){cout << "In Derived.func()." << endl;}
+    Derived() { cout << "Constructor: Derived" << endl; }
+    ~Derived() { cout << "Destructor: Derived" << endl; }
+
+    void func() { cout << "In Derived::func()." << endl; }
 };
 ```
->当基类指针指向派生类对象并删除对象时，我们可能希望调用适当的析构函数。
-> 如果析构函数不是虚拟的，则只能调用基类析构函数。
 
-## 4.完整实例
+> When a base‑class pointer points to a derived‑class object and that object is deleted, we usually want the correct (derived‑class) destructor to be called.  
+> If the destructor is not virtual, only the base‑class destructor will be invoked.
 
-抽象类由派生类继承实现！
 
-> 代码样例：[derived_full.cpp](./derived_full.cpp)
+## 4. Complete example
+
+
+An abstract class is implemented through inheritance by derived classes!
+
+
+> Code example: [derived_full.cpp](./derived_full.cpp)
