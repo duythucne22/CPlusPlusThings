@@ -1,13 +1,16 @@
-# 编译期多态：泛型编程和模板入门
+# Compile‑Time Polymorphism: Introduction to Generic Programming and Templates
 
-运行时多态通过利用接口或者虚函数实现，本节则主要阐述编译时多态。
 
->如果一只鸟走起来像鸭子、游起泳来像鸭子、叫起来也像鸭子，那么这只鸟就可以被当作鸭子。
+Runtime polymorphism is achieved through interfaces or virtual functions. This section focuses on **compile‑time polymorphism** instead.
 
-鸭子类型使得开发者可以不使用继承体系来灵活地实现一些“约定”，尤其是使得混合不同来源、使用不同对象继承体系的代码成为可能。唯一的要求只是，这些不同的对象有“共通”的成员函数。这些成员函数应当有相同的名字和相同结构的参数（并不要求参数类型相同）。
 
-在C++中实现鸭子类型可以通过模板或者说泛型编程。不管是类模板还是函数模板，编译器在看到其定义时只能做最基本的语法检查，真正的类型检查要在实例化（instantiation）的时候才能做。一般而言，这也是编译器会报错的时候。
+> If a bird walks like a duck, swims like a duck, and quacks like a duck, then it can be treated as a duck.
 
-> “动态”多态和“静态”多态的对比
+**Duck typing** lets developers implement flexible “contracts” without relying on inheritance hierarchies, and it makes it possible to combine code from different sources, even when the objects come from different inheritance trees. The only requirement is that these objects have common member functions. These functions must share the **same name** and **structurally similar parameters** (their parameter types do not need to be identical).
 
-“动态”多态解决的是运行时的行为变化—这个是无法在编译时确定的。“静态”多态或者“泛型”—解决的是很不同的问题，让适用于不同类型的“同构”算法可以用同一套代码来实现，实际上强调的是对代码的复用。
+In C++, duck typing is implemented via **templates**, that is, **generic programming**. For both class templates and function templates, the compiler can only perform basic syntactic checks when it sees the template definition. Real type checking happens only at **instantiation time**, which is when template‑related errors are usually reported.
+
+
+> **“Dynamic” polymorphism vs “Static” polymorphism**
+
+**Dynamic polymorphism** deals with behavior that changes at runtime—something that cannot be determined at compile time. In contrast, **static polymorphism** (or **generic programming**) addresses a different problem: it lets you write a single algorithm that works uniformly over many different types, emphasizing **code reuse** instead of runtime dispatch.

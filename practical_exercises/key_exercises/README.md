@@ -1,26 +1,27 @@
-## 重点实战练习
+## Key practical exercises
 
-├── [中括号重载.cpp](bracket_overloading.cpp)
-├── [时钟++运算符重载.cpp](clock.cpp)
-├── [运算符重载之强制转换.cpp](operator_cast.cpp)
-└── [重载圆括号的时钟.cpp](operator_circle.cpp)
 
-├── [函数模板.cpp](func_temp.cpp)
+├── [Operator Overloading of Square Brackets.cpp](bracket_overloading.cpp)  
+├── [Clock ++ Operator Overloading.cpp](clock.cpp)  
+├── [Operator Overloading – Type Casting.cpp](operator_cast.cpp)  
+└── [Clock Overloading Parentheses Operator.cpp](operator_circle.cpp)
 
-├── [动态数组.cpp](array.cpp)
 
-├── [字典插入与查找.cpp](map_insert_look.cpp)
+├── [Function Templates.cpp](func_temp.cpp)
 
-├── [异常捕获.cpp](try.cpp)
+├── [Dynamic Array.cpp](array.cpp)
 
-├── [类模板之栈.cpp](stack.cpp)
+├── [Dictionary Insert and Search.cpp](map_insert_look.cpp)
 
-├── [类模板特化之数组.cpp](array_template.cpp)
+├── [Exception Handling – Try/Catch.cpp](try.cpp)
 
-├── [继承与封装.cpp](override.cpp)
+├── [Stack Class Template.cpp](stack.cpp)
 
-├── [读写文件综合题.cpp](read_file.cpp)
-├── [输入输出运算符重载.cpp](io_operator_overload.cpp)
-├── [输入输出重载.cpp](io_operator.cpp)
-├── [输出格式.cpp](output.cpp)
+├── [Class Template Specialization – Array.cpp](array_template.cpp)
 
+├── [Inheritance and Encapsulation.cpp](override.cpp)
+
+├── [File Reading and Writing Comprehensive Exercise.cpp](read_file.cpp)  
+├── [Input/Output Operator Overloading.cpp](io_operator_overload.cpp)  
+├── [Input/Output Overloading.cpp](io_operator.cpp)  
+├── [Output Formatting.cpp](output.cpp)
