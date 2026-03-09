@@ -1,4 +1,4 @@
-/* 输入输出重载.cpp */
+/* Input Output Overloading.cpp */
 #include <iostream>
 using namespace std;
 #include <cstring>
@@ -26,12 +26,12 @@ Sales &operator<<(ostream &os, Sales &s) {
 }
 
 Sales &operator>>(istream &is, Sales &s) {
-  cout << "输入雇员的姓名，身份证，年龄：\n";
+  cout << "Enter employee's name, ID, age:\n";
   is >> s.name >> s.id >> s.age;
 }
 
 int main(int argc, char const *argv[]) {
-  Sales s("张三", "15611", 26);
+  Sales s("Zhang San", "15611", 26);
   cout << s;
   cin >> s;
   cout << s;
