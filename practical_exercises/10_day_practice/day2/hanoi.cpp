@@ -1,10 +1,10 @@
-/* 汉诺塔.cpp */
+/* Tower of Hanoi.cpp */
 #include <iostream>
 using namespace std;
 void move(char A, char B);
 void hanoi(int n, char A, char B, char C);
 int main(int argc, char const *argv[]) {
-  cout << "请输入盘子数量：";
+  cout << "Please enter the number of disks: ";
   int disks;
   cin >> disks;
   hanoi(disks, 'A', 'B', 'C');
@@ -23,3 +23,4 @@ void hanoi(int n, char A, char B, char C) {
     hanoi(n - 1, B, A, C);
   }
 }
+
