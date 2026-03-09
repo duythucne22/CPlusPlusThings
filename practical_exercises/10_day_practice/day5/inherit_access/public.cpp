@@ -1,3 +1,4 @@
+
 #include <iostream>
 using namespace std;
 class Base {
@@ -8,8 +9,8 @@ public:
   int getx() { return x; }
   void showx() { cout << x << endl; }
 };
-//私有继承
-//基类的中的public成员在派生类中是private, private成员在派生类中不可访问。
+// Private inheritance
+// Base class's public members become private in derived class, private members are inaccessible in derived class.
 class derived : private Base {
   int y;
 
@@ -25,3 +26,4 @@ int main() {
   obj.showx(); // cannot access
   obj.showy();
 }
+
