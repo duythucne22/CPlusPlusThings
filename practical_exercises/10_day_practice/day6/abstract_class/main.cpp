@@ -1,4 +1,4 @@
-/* 抽象类.cpp */
+/* Abstract Class.cpp */
 #include <iostream>
 using namespace std;
 class Figure {
@@ -15,17 +15,17 @@ public:
 
 class Trianle : public Figure {
 public:
-  void area() { cout << "三角形面积：" << x * y * 0.5 << endl; }
+  void area() { cout << "Triangle area: " << x * y * 0.5 << endl; }
 };
 class Rectangle : public Figure {
 public:
-  void area() { cout << "这是矩形，它的面积是：" << x * y << endl; }
+  void area() { cout << "This is a rectangle, its area is: " << x * y << endl; }
 };
 
 int main(int argc, char const *argv[]) {
-  //定义抽象类指针
+  // Define abstract class pointer
   Figure *pF = NULL;
-  // Figure f1; 抽象类不能被实例化
+  // Figure f1; Abstract class cannot be instantiated
   Rectangle r;
   Trianle t;
   t.set(10, 20);
@@ -34,7 +34,7 @@ int main(int argc, char const *argv[]) {
   r.set(10, 20);
   pF = &r;
   pF->area();
-  //定义抽象类引用
+  // Define abstract class reference
   Figure &rF = t;
   rF.set(20, 20);
   rF.area();
