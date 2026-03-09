@@ -30,7 +30,7 @@ int main() {
 }
 
 /*
-执行结果：
+Execution result:
 Constructing C
 Constructing B
 Constructing A
@@ -42,3 +42,4 @@ Destructing A
 Destructing B
 Destructing C
 */
+
