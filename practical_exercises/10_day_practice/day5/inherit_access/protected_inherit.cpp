@@ -1,7 +1,7 @@
 /*
-派生方式为protected的继承称为保护继承，在这种继承方式下，
-基类的public成员在派生类中会变成protected成员，
-基类的protected和private成员在派生类中保持原来的访问权限
+Protected inheritance is when the inheritance mode is protected.
+In this inheritance mode, the base class's public members become protected members in the derived class.
+The base class's protected and private members maintain their original access权限 in the derived class.
 */
 #include <iostream>
 using namespace std;
@@ -20,21 +20,23 @@ class Derived : protected Base {
 
 public:
   void sety(int n) { y = n; }
-  void sety() { y = getx(); } //访问基类的保护成员
+  void sety() { y = getx(); } // Access base class's protected member
   void showy() { cout << y << endl; }
 };
 int main() {
   Derived obj;
-  obj.setx(10); //错误
+  obj.setx(10); // Error
   obj.sety(20);
-  obj.showx(); //错误，
+  obj.showx(); // Error
   obj.showy();
   
 }
 
 /*
-解释：
-如最上面文字所示：保护继承会将基类的public变为protected，而对于protected成员，
-外部去使用保护成员的时候，会报错，所以setx与showx访问错误，而对于派生类，则可直接访问基类的保护成员，
-在派生类中，y=getx()可正常访问！
+Explanation:
+As shown in the text above, protected inheritance changes base class's public to protected.
+For protected members, when used externally, an error will occur.
+So setx and showx access errors. However, for derived classes, they can directly access base class's protected members.
+In derived class, y=getx() can be accessed normally!
 */
+
