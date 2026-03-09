@@ -1,13 +1,16 @@
-/* 运算符重载之强制转换.cpp */
+/* Operator Overloading - Type Conversion.cpp */
 /*
-有一个类Circle，设计该类的类型转换函数，当将Circle对象转换成int型时，返回圆的半径；当将它转换成double型时，就返回圆的周长；当将它转换成float型时，就返回圆的面积。
+There is a class Circle, design type conversion functions for this class:
+- When converting Circle object to int, return the circle's radius;
+- When converting to double, return the circle's circumference;
+- When converting to float, return the circle's area.
 */
 
 /*
 
-类型转换函数没有参数。
-类型转换函数没有返回类型。
-类型转换函数必须返回将要转换成的type类型数据。
+Type conversion functions have no parameters.
+Type conversion functions have no return type.
+Type conversion functions must return data of the type being converted to.
 
 */
 
@@ -29,10 +32,10 @@ public:
 };
 int main() {
   Circle c(2.3, 3.4, 2.5);
-  int r = c;         //调用operator int()，将Circle类型转换成int
-  double length = c; //调用operator double()，转换成double
-  float area = c;    //调用operator float()，将Circle类型转换成float
-  double len = (double)c; //将Cirlce类型对象强制转换成double
+  int r = c;         // Call operator int(), convert Circle to int
+  double length = c; // Call operator double(), convert to double
+  float area = c;    // Call operator float(), convert Circle to float
+  double len = (double)c; // Force convert Circle type object to double
   cout << r << endl;
   cout << length << endl;
   cout << len << endl;
