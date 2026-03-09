@@ -1,4 +1,3 @@
-
 #include <iostream>
 using namespace std;
 void display(const double &r);
@@ -16,12 +15,13 @@ private:
 int main() {
   double d(9.5);
   display(d);
-  A const a(3, 4); // a是常对象，不能被更新
+  A const a(3, 4); // a is a const object, cannot be updated
   
   return 0;
 }
 void display(const double &r)
-//常引用做形参，在函数中不能更新 r所引用的对象。
+// Const reference as parameter, cannot update the object r refers to in the function.
 {
   cout << r << endl;
 }
+
