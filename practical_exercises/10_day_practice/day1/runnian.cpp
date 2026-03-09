@@ -1,4 +1,4 @@
-/* 是否闰年.cpp */
+/* Leap Year Check.cpp */
 #include <iostream>
 using namespace std;
 int main(int argc, char const *argv[]) {
