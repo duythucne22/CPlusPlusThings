@@ -16,12 +16,13 @@ protected:
   int len;
 
 public:
-  Line(int a, int b, int l) : Point(a, b) { //构造函数初始化列表
+  Line(int a, int b, int l) : Point(a, b) { // Constructor initialization list
     len = l;
-    cout << "Constructing Line,len ..." << len << endl;
+    cout << "Constructing Line, len ..." << len << endl;
   }
 };
 int main() {
   Line L1(1, 2, 3);
   
 }
+
