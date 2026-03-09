@@ -16,7 +16,7 @@ private:
   int y;
 
 public:
-  Derived(int a, int b) : Base(a) { //派生类构造函数的初始化列表
+  Derived(int a, int b) : Base(a) { // Derived class constructor initialization list
     y = b;
     cout << "Derived constructor y=" << y << endl;
   }
@@ -27,3 +27,4 @@ int main() {
   
   return 0;
 }
+
