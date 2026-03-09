@@ -1,4 +1,4 @@
-/* 输出格式.cpp */
+/* Output Format.cpp */
 #include <iomanip>
 #include <iostream>
 using namespace std;
@@ -9,9 +9,9 @@ int main(int argc, char const *argv[]) {
   cout << setw(30) << left << setfill('*') << s << endl;
   cout << dec << setprecision(4) << digit << endl;
   cout << dec << 15 << endl;
-  // setbase(int x)设置进制后，后面所有操作都是按照这个进制来计算！
+  // setbase(int x) sets the base, after which all operations use this base for calculation!
   cout << setbase(10) << 15 << endl;
-  //四舍五入,并保留2位有效数组
+  // Round to nearest integer, keep 2 decimal places
   float x = 6.6937;
   cout << float(int(x * 1000 + 0.5) / 1000.0) << endl;
   
