@@ -1,29 +1,29 @@
-/* 中括号重载.cpp */
+/* Bracket Overloading.cpp */
 #include <cstring>
 #include <iostream>
 using namespace std;
-struct Person { //职工基本信息的结构
+struct Person { // Structure for employee basic information
   double salary;
   char *name;
 };
 class SalaryManaege {
-  Person *employ; //存放职工信息的数组
-  int max;        //数组下标上界
-  int n;          //数组中的实际职工人数
+  Person *employ; // Array to store employee information
+  int max;        // Upper bound of array index
+  int n;          // Actual number of employees in the array
 public:
   SalaryManaege(int Max = 0) {
     max = Max;
     n = 0;
     employ = new Person[max];
   }
-  //返回引用特性是可以直接在放在左值，直接使用
-  double &operator[](char *Name) { //重载[]，返回引用
+  // The reference return feature allows direct use as lvalue
+  double &operator[](char *Name) { // Overload [], return reference
     Person *p;
     for (p = employ; p < employ + n; p++)
-      //如果存在处理
+      // If exists, handle it
       if (strcmp(p->name, Name) == 0)
         return p->salary;
-    //不存在情况处理
+    // Handle case when not exists
     p = employ + n++;
     p->name = new char[strlen(Name) + 1];
     strcpy(p->name, Name);
@@ -39,13 +39,13 @@ public:
 };
 int main() {
   SalaryManaege s(3);
-  s["张三"] = 2188.88;
-  s["里斯"] = 1230.07;
-  s["王无"] = 3200.97;
-  cout << "张三\t" << s["张三"] << endl;
-  cout << "里斯\t" << s["里斯"] << endl;
-  cout << "王无\t" << s["王无"] << endl;
+  s["Zhang San"] = 2188.88;
+  s["Li Si"] = 1230.07;
+  s["Wang Wu"] = 3200.97;
+  cout << "Zhang San\t" << s["Zhang San"] << endl;
+  cout << "Li Si\t" << s["Li Si"] << endl;
+  cout << "Wang Wu\t" << s["Wang Wu"] << endl;
 
-  cout << "-------下为display的输出--------\n\n";
+  cout << "-------Below is the output of display--------\n\n";
   s.display();
 }
