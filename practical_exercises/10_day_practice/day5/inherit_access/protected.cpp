@@ -1,8 +1,8 @@
 /*
-基类中protected的成员
-类内部：可以访问
-类的使用者：不能访问
-类的派生类成员：可以访问
+Base class protected members:
+Inside class: accessible
+Class users: cannot access
+Class derived class members: can access
 */
 #include <iostream>
 class B {
@@ -18,16 +18,17 @@ public:
 class D : public B {
 public:
   void f() {
-    i = 1; // cannot access 派生类不可访问基类私有成员
-    j = 2; //派生类可以访问基类保护成员
+    i = 1; // cannot access - derived class cannot access base class private members
+    j = 2; // derived class can access base class protected members
     k = 3;
   }
 };
 int main() {
   B b;
-  b.i = 1; // cannot access 私有成员，类的使用者不能访问
-  b.j = 2; // cannot access 保护成员，类的使用者不能访问
+  b.i = 1; // cannot access - private members, class users cannot access
+  b.j = 2; // cannot access - protected members, class users cannot access
   b.k = 3;
   
   return 0;
 }
+
