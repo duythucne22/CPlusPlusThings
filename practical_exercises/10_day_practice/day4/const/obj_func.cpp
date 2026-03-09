@@ -6,7 +6,7 @@ public:
     R1 = r1;
     R2 = r2;
   }
-  // const区分成员重载函数
+  // const distinguishes overloaded member functions
   void print();
   void print() const;
 
@@ -14,27 +14,56 @@ private:
   int R1, R2;
 };
 /*
-常成员函数说明格式：类型说明符  函数名（参数表）const;
-这里，const是函数类型的一个组成部分，因此在实现部分也要带const关键字。
-const关键字可以被用于参与对重载函数的区分
-通过常对象只能调用它的常成员函数
+Format for const member function declaration: type_specifier function_name(parameter_list) const;
+Here, const is part of the function type, so the implementation must also include the const keyword.
+The const keyword can be used to distinguish overloaded functions.
+Const objects can only call their const member functions.
 */
 
 void R::print() {
-  cout << "普通调用" << endl;
+  cout << "Normal call" << endl;
   cout << R1 << ":" << R2 << endl;
 }
-//实例化也需要带上
+// Instantiation also needs to include const
 void R::print() const {
-  cout << "常对象调用" << endl;
+  cout << "Const object call" << endl;
   cout << R1 << ";" << R2 << endl;
 }
 int main() {
   R a(5, 4);
-  a.print(); //调用void print()
-  //通过常对象只能调用它的常成员函数
+  a.print(); // Call void print()
+  // Const objects can only call their const member functions
   const R b(20, 52);
-  b.print(); //调用void print() const
+  b.print(); // Call void print() const
   
   return 0;
 }
+
+
+#include <iostream>
+using namespace std;
+void display(const double &r);
+
+class A {
+public:
+  A(int i, int j) {
+    x = i;
+    y = j;
+  }
+
+private:
+  int x, y;
+};
+int main() {
+  double d(9.5);
+  display(d);
+  A const a(3, 4); // a is a const object, cannot be modified
+  
+  return 0;
+}
+void display(const double &r)
+// Const reference as parameter, cannot modify the object it refers to in the function.
+{
+  cout << r << endl;
+}
+
