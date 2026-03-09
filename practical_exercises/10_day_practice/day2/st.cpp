@@ -1,4 +1,4 @@
-/* 结构体.cpp */
+/* Struct.cpp */
 #include <iostream>
 using namespace std;
 struct student {
