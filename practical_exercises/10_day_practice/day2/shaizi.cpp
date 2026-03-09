@@ -1,4 +1,4 @@
-/* 掷骰子.cpp */
+/* Dice Rolling.cpp */
 #include <cstdlib>
 #include <iostream>
 using namespace std;
@@ -6,7 +6,7 @@ int rolldice();
 int main(int argc, char const *argv[]) {
   int flag;
   unsigned seed;
-  cout << "请输入无符号整数：" << endl;
+  cout << "Please enter an unsigned integer:" << endl;
   cin >> seed;
   srand(seed);
   int sum = rolldice();
@@ -52,3 +52,4 @@ int rolldice() {
   cout << "sum=" << dim1 << "+" << dim2 << endl;
   return sum;
 }
+
