@@ -1,10 +1,10 @@
-/* 时钟++运算符重载.cpp */
+/* Clock ++ Operator Overloading.cpp */
 #include <cmath>
 #include <iostream>
 using namespace std;
 
 /*
- *  时钟类
+ *  Clock class
  */
 class Clock {
 private:
@@ -18,7 +18,7 @@ public:
 };
 
 /*
- *  时钟类构造函数
+ *  Clock class constructor
  */
 Clock::Clock(int h, int m, int s) {
   if (h >= 0 && h < 24 && m >= 0 && m < 60 && s >= 0 && s < 60) {
@@ -26,18 +26,18 @@ Clock::Clock(int h, int m, int s) {
     Minute = m;
     Second = s;
   } else
-    cout << "输入的时间格式错误!" << endl;
+    cout << "Input time format error!" << endl;
 }
 
 /*
- *  显示时间
+ *  Display time
  */
 void Clock::ShowTime() {
   cout << Hour << ":" << Minute << ":" << Second << endl;
 }
 
 /*
- *  时间递增一秒（重载前缀++运算符）
+ *  Increment time by one second (overload prefix ++ operator)
  */
 Clock &Clock::operator++() {
   Second++;
@@ -54,7 +54,7 @@ Clock &Clock::operator++() {
 }
 
 /*
- *  时间递增一秒（重载后缀++运算符）
+ *  Increment time by one second (overload postfix ++ operator)
  */
 Clock Clock::operator++(int) {
   Clock old = *this;
@@ -63,23 +63,23 @@ Clock Clock::operator++(int) {
 }
 
 /*
- *  主函数
+ *  Main function
  */
 int main() {
   Clock myClock(23, 59, 59);
-  cout << "初始化显示时间为:\t\t";
+  cout << "Initial display time:\t\t";
   myClock.ShowTime();
 
-  cout << "执行myClock++后的时间为:\t";
+  cout << "After myClock++ time:\t";
 
-  //先执行ShowTime()，输出myClock=23:59:59，
-  //再执行myClock++，此时myClock=00:00:00
+  // First execute ShowTime(), output myClock=23:59:59,
+  // Then execute myClock++, now myClock=00:00:00
   (myClock++).ShowTime();
 
-  cout << "执行++myClock后的时间为:\t";
+  cout << "After ++myClock time:\t";
 
-  //先执行++myClock，此时myClock=00:00:01
-  //再执行ShowTime()，输出myClock=00:00:01
+  // First execute ++myClock, now myClock=00:00:01
+  // Then execute ShowTime(), output myClock=00:00:01
   (++myClock).ShowTime();
   
 }
