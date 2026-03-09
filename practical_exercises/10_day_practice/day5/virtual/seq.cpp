@@ -1,5 +1,5 @@
-/* 虚基类调用次序(重要).cpp */
-//重要!!!
+/* Virtual Base Class Call Order (Important).cpp */
+// Important!!!
 #include <iostream>
 using namespace std;
 class A {
