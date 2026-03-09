@@ -1,7 +1,7 @@
-/* 输入输出运算符重载.cpp */
+/* Input Output Operator Overloading.cpp */
 /*
-   有一销售人员类Sales，其数据成员有姓名name，身份证号id，年龄age。
-   重载输入/输出运算符实现对Sales类数据成员的输入和输出。
+   There is a sales person class Sales, with data members: name, id number, age.
+   Overload input/output operators to implement input and output of Sales class data members.
  */
 #include <cstring>
 #include <iostream>
@@ -15,8 +15,8 @@ private:
 public:
   Sales(char *Name, char *ID, int Age);
 
-  friend Sales &operator<<(ostream &os, Sales &s); //重载输出运算符
-  friend Sales &operator>>(istream &is, Sales &s); //重载输入运算符
+  friend Sales &operator<<(ostream &os, Sales &s); // Overload output operator
+  friend Sales &operator>>(istream &is, Sales &s); // Overload input operator
 };
 Sales::Sales(char *Name, char *ID, int Age) {
   strcpy(name, Name);
@@ -24,18 +24,18 @@ Sales::Sales(char *Name, char *ID, int Age) {
   age = Age;
 }
 Sales &operator<<(ostream &os, Sales &s) {
-  os << s.name << "\t"; //输出姓名
-  os << s.id << "\t";   //输出身份证号
-  os << s.age << endl;  //输出年龄
+  os << s.name << "\t"; // Output name
+  os << s.id << "\t";   // Output ID number
+  os << s.age << endl;  // Output age
   return s;
 }
 Sales &operator>>(istream &is, Sales &s) {
-  cout << "输入雇员的姓名，身份证号，年龄" << endl;
+  cout << "Enter employee's name, ID number, age" << endl;
   is >> s.name >> s.id >> s.age;
   return s;
 }
 int main() {
-  Sales s1("杜康", "214198012111711", 40); // L1
+  Sales s1("Du Kang", "214198012111711", 40); // L1
   cout << s1;                              // L2
   cout << endl;                            // L3
   cin >> s1;                               // L4
