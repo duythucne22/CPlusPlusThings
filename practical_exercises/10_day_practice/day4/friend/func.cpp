@@ -1,4 +1,4 @@
-//使用友元函数计算两点间距离
+// Use friend function to calculate distance between two points
 #include <cmath>
 #include <iostream>
 using namespace std;
@@ -10,9 +10,9 @@ public:
   friend float Distance(Point &a, Point &b);
 
 private:
-  int X, Y; //私有数据成员
+  int X, Y; // Private data members
 };
-//通过将一个模块声明为另一个模块的友元，一个模块能够引用到另一个模块中本是被隐藏的信息。
+// By declaring one module as a friend of another, a module can access information that is otherwise hidden in another module.
 float Distance(Point &a, Point &b) {
   double dx = a.X - b.X;
   double dy = a.Y - b.Y;
@@ -21,7 +21,8 @@ float Distance(Point &a, Point &b) {
 
 int main() {
   Point p1(3.0, 5.0), p2(4.0, 6.0);
-  cout << "两点距离为：" << Distance(p1, p2) << endl;
+  cout << "Distance between two points: " << Distance(p1, p2) << endl;
   
   return 0;
 }
+
