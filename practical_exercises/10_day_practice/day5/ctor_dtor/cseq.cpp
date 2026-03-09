@@ -2,8 +2,8 @@
 using namespace std;
 
 /*
-先构造成员
-再构造自身（调用构造函数）
+First construct members
+Then construct self (call constructor)
 */
 
 class A {
@@ -31,7 +31,7 @@ int main() {
 }
 
 /*
-执行结果：
+Execution result:
 Constructing B
 Constructing A
 Constructing C
@@ -39,3 +39,4 @@ Destructing C
 Destructing A
 Destructing B
 */
+
