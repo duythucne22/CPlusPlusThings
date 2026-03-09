@@ -1,4 +1,4 @@
-/* 重载()的时钟.cpp */
+/* Overload () Clock.cpp */
 #include <iostream>
 using namespace std;
 class Time {
@@ -23,3 +23,4 @@ int main() {
   t1.ShowTime();
   
 }
+
