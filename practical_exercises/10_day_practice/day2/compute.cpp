@@ -1,4 +1,4 @@
-/* 求π.cpp */
+/* Calculate Pi.cpp */
 #include <iostream>
 using namespace std;
 double arctan(double x);
@@ -24,3 +24,4 @@ double arctan(double x) {
   }
   return art;
 }
+
