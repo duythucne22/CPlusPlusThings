@@ -1,4 +1,4 @@
-/* 重载圆括号的时钟.cpp */
+/* Clock with Overloaded Parentheses Operator.cpp */
 #include <iostream>
 using namespace std;
 class Time {
@@ -23,3 +23,4 @@ int main() {
   t1.ShowTime();
   
 }
+
