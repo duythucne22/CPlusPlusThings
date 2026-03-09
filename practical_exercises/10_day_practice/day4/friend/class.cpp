@@ -1,13 +1,13 @@
 #include <iostream>
 using namespace std;
 /*
-若一个类为另一个类的友元，则此类的所有成员都能访问对方类的私有成员。
-声明语法：将友元类名在另一个类中使用friend修饰说明。
+If one class is a friend of another class, all members of this class can access the private members of the other class.
+Declaration syntax: Use friend modifier before the friend class name when declaring in another class.
 */
 
 /*
-如果声明B类是A类的友元，B类的成员函数就可以访问A类的私有和保护数据，
-但A类的成员函数却不能访问B类的私有、保护数据。
+If class B is declared as a friend of class A, B's member functions can access A's private and protected data,
+but A's member functions cannot access B's private and protected data.
 */
 class A {
   friend class B;
@@ -39,5 +39,7 @@ int main(int argc, char const *argv[]) {
 }
 
 /*
-如果声明B类是A类的友元，B类的成员函数就可以访问A类的私有和保护数据，但A类的成员函数却不能访问B类的私有、保护数据
+If class B is declared as a friend of class A, B's member functions can access A's private and protected data,
+but A's member functions cannot access B's private and protected data
 */
+
