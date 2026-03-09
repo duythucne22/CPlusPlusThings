@@ -1,4 +1,4 @@
-/* 类模板之栈.cpp */
+/* Class Template - Stack.cpp */
 #include <iostream>
 
 using namespace std;
@@ -33,7 +33,7 @@ template <typename T, int MAXSIZE> void Stack<T, MAXSIZE>::push(T e) {
   if (!isFull()) {
     elems[++top] = e;
   } else {
-    cout << "栈已满，请不要再加入元素！";
+    cout << "Stack is full, please do not add more elements!";
     return;
   }
 }
@@ -41,7 +41,7 @@ template <typename T, int MAXSIZE> T Stack<T, MAXSIZE>::pop() {
   if (!isEmpty()) {
     return elems[top--];
   } else {
-    cout << "栈已空，请不要再弹出元素！";
+    cout << "Stack is empty, please do not pop more elements!";
     return 0;
   }
 }
