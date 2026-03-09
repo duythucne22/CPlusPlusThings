@@ -1,10 +1,11 @@
-/* 函数综合练习题.cpp */
+/* Comprehensive Function Practice.cpp */
 /*
-一圆型游泳池如图所示，现在需在其周围建一圆型过道，并在其四周围上栅栏。栅栏价格为35元/米，过道造价为20元/平方米。
-过道宽度为3米，游泳池半径由键盘输入。要求编程计算并输出过道和栅栏的造价。
+A circular swimming pool is shown in the figure below. Now we need to build a circular walkway around it and put a fence around it.
+The fence price is 35 yuan/meter, and the walkway construction cost is 20 yuan/square meter.
+The walkway width is 3 meters, and the pool radius is entered from the keyboard. Write a program to calculate and output the cost of the walkway and fence.
 
-图形描述：大圆嵌套小圆：
-小圆在大圆中间，小圆为游泳池，大圆与小圆间隔为过道。
+Description: A large circle contains a small circle:
+The small circle is in the middle of the large circle, the small circle is the swimming pool, and the gap between the large circle and small circle is the walkway.
 */
 #include <iostream>
 using namespace std;
@@ -23,30 +24,31 @@ public:
 };
 Circle::Circle(float r) { radius = r; }
 
-// 计算圆的周长
+// Calculate circumference of circle
 float Circle::Circumference() const { return 2 * PI * radius; }
 
-// 计算圆的面积
+// Calculate area of circle
 float Circle::Area() const { return PI * radius * radius; }
 
 int main(int argc, char const *argv[]) {
   float radius;
   float FenceCost, ConcreteCost;
 
-  // 提示用户输入半径
+  // Prompt user to enter radius
   cout << "Enter the radius of the pool: ";
   cin >> radius;
 
-  // 声明 Circle 对象
+  // Declare Circle objects
   Circle Pool(radius);
   Circle PoolRim(radius + 3);
-  // 计算栅栏造价并输出
+  // Calculate fence cost and output
   FenceCost = PoolRim.Circumference() * FencePrice;
-  cout << "Fencing Cost is ￥" << FenceCost << endl;
+  cout << "Fencing Cost is RMB " << FenceCost << endl;
 
-  //  计算过道造价并输出
+  // Calculate walkway cost and output
   ConcreteCost = (PoolRim.Area() - Pool.Area()) * ConcretePrice;
-  cout << "Concrete Cost is ￥" << ConcreteCost << endl;
+  cout << "Concrete Cost is RMB " << ConcreteCost << endl;
   
   return 0;
 }
+
