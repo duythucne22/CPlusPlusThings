@@ -1,10 +1,10 @@
-/* 静态变量.cpp */
+/* Static Variable.cpp */
 #include <iostream>
 using namespace std;
-int i = 1; // i 为全局变量，具有静态生存期。
+int i = 1; // i is a global variable with static storage duration.
 int main(void) {
-  static int a; // 静态局部变量，有全局寿命，局部可见。
-  int b = -10;  // b, c为局部变量，具有动态生存期。
+  static int a; // Static local variable, has global lifetime, locally visible.
+  int b = -10;  // b, c are local variables with dynamic storage duration.
   int c = 0;
   void other(void);
   cout << "---MAIN---\n";
@@ -24,10 +24,10 @@ int main(void) {
 void other(void) {
   static int a = 2;
   static int b;
-  // a,b为静态局部变量，具有全局寿命，局部可见。
-  //只第一次进入函数时被初始化。
-  int c = 10; // C为局部变量，具有动态生存期
-  //每次进入函数时都初始化。
+  // a,b are static local variables with global lifetime, locally visible.
+  // Initialized only the first time entering the function.
+  int c = 10; // c is a local variable with dynamic storage duration
+  // Initialized every time entering the function.
   a = a + 2;
   i = i + 32;
   c = c + 5;
@@ -35,3 +35,4 @@ void other(void) {
   cout << " i: " << i << " a: " << a << " b: " << b << " c: " << c << endl;
   b = a;
 }
+
