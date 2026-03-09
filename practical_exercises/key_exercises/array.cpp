@@ -1,4 +1,4 @@
-/* 数组.cpp */
+/* Array.cpp */
 #include <cstring>
 #include <iostream>
 
