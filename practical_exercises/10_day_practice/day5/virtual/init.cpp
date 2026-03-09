@@ -1,4 +1,4 @@
-/* 派生类初始化.cpp */
+/* Derived Class Initialization.cpp */
 #include <iostream>
 using namespace std;
 class A {
@@ -7,12 +7,12 @@ class A {
 public:
   A(int x) {
     a = x;
-    cout << "Virtual Bass A..." << endl;
+    cout << "Constructing Virtual Base A..." << endl;
   }
 };
 class B : virtual public A {
 public:
-  B(int i) : A(i) { cout << "Virtual Bass B..." << endl; }
+  B(int i) : A(i) { cout << "Constructing Virtual Base B..." << endl; }
 };
 class C : virtual public A {
   int x;
@@ -25,9 +25,9 @@ public:
 };
 class ABC : public C, public B {
 public:
-  //虚基类由最终派生类初始化
+  // Virtual base class is initialized by the most derived class
   ABC(int i, int j, int k)
-      : C(i), B(j), A(i) // L1，这里必须对A进行初始化
+      : C(i), B(j), A(i) // L1, must initialize A here
   {
     cout << "Constructing ABC..." << endl;
   }
