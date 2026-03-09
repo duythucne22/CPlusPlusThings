@@ -1,4 +1,4 @@
-/* 基类与派生类(重要).cpp */
+/* Base Class and Derived Class (Important).cpp */
 #include <iostream>
 using namespace std;
 class A {
@@ -24,19 +24,19 @@ int main() {
   B b1;
   a1.setA(1);
   b1.setA(2);
-  //把派生类对象赋值给基类对象。
+  // Assign derived class object to base class object.
   a1 = b1;
   cout << a1.getA() << endl;
   cout << b1.getA() << endl;
   a1.setA(10);
   cout << a1.getA() << endl;
   cout << b1.getA() << endl;
-  //把派生类对象的地址赋值给基类指针。
+  // Assign derived class object's address to base class pointer.
   pA = &b1;
   pA->setA(20);
   cout << pA->getA() << endl;
   cout << b1.getA() << endl;
-  //用派生类对象初始化基类对象的引用。
+  // Use derived class object to initialize reference to base class object.
   A &ra = b1;
   ra.setA(30);
   cout << pA->getA() << endl;
@@ -53,3 +53,4 @@ int main() {
   
   return 0;
 }
+
