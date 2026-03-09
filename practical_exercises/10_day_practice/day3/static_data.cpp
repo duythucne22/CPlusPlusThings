@@ -1,10 +1,10 @@
-/* 静态数据成员.cpp */
+/* Static Data Member.cpp */
 /*
-学习知识：
-静态数据成员
-用关键字static声明
-该类的所有对象维护该成员的同一个拷贝
-必须在类外定义和初始化，用(::)来指明所属的类。
+Learning:
+Static data members
+Declared with keyword static
+All objects of this class maintain the same copy of this member
+Must be defined and initialized outside the class, use (::) to specify which class it belongs to.
 */
 #include <iostream>
 using namespace std;
@@ -22,7 +22,7 @@ public:
 
 private:
   int X, Y;
-  //静态数据成员，必须在外部定义和初始化，内部不能直接初始化！
+  // Static data member, must be defined and initialized outside, cannot be initialized directly inside!
   static int countP;
 };
 Point::Point(Point &p) {
@@ -30,7 +30,7 @@ Point::Point(Point &p) {
   Y = p.Y;
   countP++;
 }
-//必须在类外定义和初始化，用(::)来指明所属的类。
+// Must be defined and initialized outside the class, use (::) to specify which class it belongs to.
 int Point::countP = 0;
 int main() {
   Point A(4, 5);
@@ -42,3 +42,4 @@ int main() {
   
   return 0;
 }
+
