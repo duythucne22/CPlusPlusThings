@@ -1,4 +1,4 @@
-/* 静态成员函数2.cpp */
+/* Static Member Function 2.cpp */
 #include <iostream>
 using namespace std;
 class A {
@@ -10,9 +10,9 @@ private:
 };
 void A::f(A a) {
 
-  //静态成员函数只能引用属于该类的静态数据成员或静态成员函数。
-  // cout<<x; //对x的引用是错误的
-  cout << a.x; //正确
+  // Static member functions can only access static data members or static member functions of the class.
+  // cout<<x; // Referencing x is wrong
+  cout << a.x; // Correct
 }
 
 int main(int argc, char const *argv[]) {
@@ -21,3 +21,4 @@ int main(int argc, char const *argv[]) {
   
   return 0;
 }
+
