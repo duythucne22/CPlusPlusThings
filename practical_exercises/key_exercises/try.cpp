@@ -1,11 +1,11 @@
-/* 异常捕获.cpp */
+/* Exception Handling.cpp */
 #include <iostream>
 using namespace std;
-//函数异常可以抛出去由主函数来处理
+// Function exceptions can be thrown to be handled by the main function
 void fun(int x) {
   try {
     if (x == 0)
-      throw "异常";
+      throw "exception";
   } catch (...) {
     cout << "in fun" << endl;
     throw 1;
