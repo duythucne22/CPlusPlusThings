@@ -1,4 +1,4 @@
-/* 函数模板.cpp */
+/* Function Template.cpp */
 #include <cstring>
 #include <iostream>
 using namespace std;
