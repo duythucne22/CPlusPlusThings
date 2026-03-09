@@ -1,4 +1,4 @@
-/* 类模板特化之数组.cpp */
+/* Class Template Specialization for Array.cpp */
 #include <cstring>
 #include <iostream>
 using namespace std;
@@ -20,7 +20,7 @@ private:
 
 template <class T> T &Array<T>::operator[](int i) {
   if (i < 0 || i > MAXSIZE - 1) {
-    cout << "数组下标越界！" << endl;
+    cout << "Array index out of bounds!" << endl;
     exit(0);
   }
   return array[i];
