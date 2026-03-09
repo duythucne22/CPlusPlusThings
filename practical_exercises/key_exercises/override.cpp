@@ -1,4 +1,4 @@
-/* 继承与封装.cpp */
+/* Inheritance and Encapsulation.cpp */
 #include <cstring>
 #include <iostream>
 
@@ -20,12 +20,12 @@ private:
 
 class Manager : public Employee {
 public:
-  //直接调用构造方法传递，基类构造方法有参数，派生类必须通过构造方法，在初始化列表中传递参数
+  // Directly call constructor to pass, base class constructor has parameters, derived class must pass parameters through constructor in initialization list
   Manager(const char *name, const char *id, int week) : Employee(name, id) {
     WeeklySalary = week * 1000;
   }
   void display() {
-    cout << "经理：" << getName() << "\t" << getId() << "\t" << WeeklySalary
+    cout << "Manager: " << getName() << "\t" << getId() << "\t" << WeeklySalary
          << endl;
   }
 
@@ -40,7 +40,7 @@ public:
     workerMoney = baseMoney + x * 0.05 * profit;
   }
   void display() {
-    cout << "销售员：" << getName() << "\t" << getId() << "\t" << workerMoney
+    cout << "Salesperson: " << getName() << "\t" << getId() << "\t" << workerMoney
          << endl;
   }
 
@@ -54,7 +54,7 @@ public:
     TotalMoney = h * hourMoney;
   }
   void display() {
-    cout << "小时工：" << getName() << "\t" << getId() << "\t" << TotalMoney
+    cout << "Hourly Worker: " << getName() << "\t" << getId() << "\t" << TotalMoney
          << endl;
   }
 
@@ -64,23 +64,23 @@ private:
 };
 
 int main(int argc, char const *argv[]) {
-  cout << "请输入工作周：";
+  cout << "Please enter work weeks: ";
   int week;
   cin >> week;
-  Manager m("小王", "11111111", week);
+  Manager m("Xiao Wang", "11111111", week);
   m.display();
-  cout << "请输入销售利润：";
+  cout << "Please enter sales profit: ";
   int profit;
   cin >> profit;
-  cout << "请输入销售件数：";
+  cout << "Please enter number of items sold: ";
   int x;
   cin >> x;
-  SaleWorker s("小李", "222222", profit, x);
+  SaleWorker s("Xiao Li", "222222", profit, x);
   s.display();
-  cout << "请输入工作小时：";
+  cout << "Please enter work hours: ";
   int hour;
   cin >> hour;
-  HourWorker h("小何", "333333", hour);
+  HourWorker h("Xiao He", "333333", hour);
   h.display();
   
   return 0;
