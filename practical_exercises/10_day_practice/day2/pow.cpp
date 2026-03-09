@@ -1,4 +1,4 @@
-/* x的n次方.cpp */
+/* x to the power of n.cpp */
 #include <iostream>
 using namespace std;
 double power(double x, int n);
@@ -27,3 +27,4 @@ double power(double x, int n) {
   }
   return val;
 }
+
