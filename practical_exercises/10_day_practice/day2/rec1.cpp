@@ -1,4 +1,4 @@
-/* 递归1.cpp */
+/* Recursion 1.cpp */
 #include <iostream>
 using namespace std;
 
@@ -19,3 +19,4 @@ int f(int n) {
     return n * f(n - 1);
   }
 }
+
