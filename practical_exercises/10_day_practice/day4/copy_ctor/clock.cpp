@@ -12,7 +12,7 @@ Clock::Clock(Clock &c) {
   this->Second = c.Second;
 }
 void Clock::SetTime(int NewH, int NewM, int NewS) {
-  //加不加this指针都一样
+  // Adding this pointer or not makes no difference
   this->Hour = NewH;
   this->Minute = NewM;
   this->Second = NewS;
@@ -22,17 +22,18 @@ void Clock::ShowTime() {
   cout << this->Minute << endl;
   cout << this->Second << endl;
 }
-//析构函数
+// Destructor
 Clock::~Clock() {}
 int main(int argc, char const *argv[]) {
   Clock c(0, 0, 0);
 
   c.SetTime(10, 20, 30);
   c.ShowTime();
-  //拷贝构造函数调用
+  // Copy constructor call
   Clock c1(c);
   c1.ShowTime();
   c1.SetTime(90, 98, 99);
   c1.ShowTime();
   return 0;
 }
+
