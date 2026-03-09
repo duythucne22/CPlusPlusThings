@@ -8,7 +8,7 @@ public:
   int getx() { return x; }
   void showx() { cout << x << endl; }
 };
-//派生类
+// Derived class
 class derived : public base {
   int y;
 
@@ -17,7 +17,7 @@ public:
   void sety() { y = getx(); }
   void showy() { cout << y << endl; }
 };
-//派生类不可直接访问基类的private成员，可通过基类的共有成员函数访问
+// Derived class cannot directly access base class's private members, but can access them through base class's public member functions
 int main() {
   derived obj;
   obj.setx(10);
@@ -29,3 +29,4 @@ int main() {
   obj.showy();
   
 }
+
