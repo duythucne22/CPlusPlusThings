@@ -1,4 +1,4 @@
-/* 读写文件综合题.cpp */
+/* File Read/Write Comprehensive Exercise.cpp */
 #include <cstring>
 #include <fstream>
 #include <iostream>
@@ -37,21 +37,21 @@ int main(int argc, char const *argv[]) {
   int Math, Chinese, English;
   fstream ioFile;
   ioFile.open("d:/per.dat", ios::out | ios::app);
-  cout << "---------建立学生档案信息----------\n";
+  cout << "---------Create Student Record----------\n";
   do {
-    cout << "请输入姓名：";
+    cout << "Please enter name: ";
     cin >> Name;
-    cout << "请输入身份证号：";
+    cout << "Please enter ID number: ";
     cin >> Id;
-    cout << "请输入数学成绩：";
+    cout << "Please enter Math score: ";
     cin >> Math;
-    cout << "请输入汉语成绩：";
+    cout << "Please enter Chinese score: ";
     cin >> Chinese;
-    cout << "请输入英语成绩：";
+    cout << "Please enter English score: ";
     cin >> English;
     Person per(Name, Id, Math, Chinese, English);
     ioFile.write((char *)&per, sizeof(per));
-    cout << "您是否继续建档？(Y/y)  ";
+    cout << "Continue creating record? (Y/y)  ";
     cin >> ch;
   } while (ch == 'y' || ch == 'Y');
   ioFile.close();
@@ -65,7 +65,7 @@ int main(int argc, char const *argv[]) {
     ioFile.read((char *)&p, sizeof(p));
   }
   ioFile.close();
-  cout << "---------输出档案信息-----------" << endl;
+  cout << "---------Output Record Information-----------" << endl;
   for (vt = v.begin(); vt != v.end(); vt++) {
     (*vt).display();
   }
