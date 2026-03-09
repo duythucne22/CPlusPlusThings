@@ -1,9 +1,9 @@
-/* 递归2.cpp */
+/* Recursion 2.cpp */
 #include <iostream>
 using namespace std;
 int f(int n, int k);
 int main(int argc, char const *argv[]) {
-  cout << "请输入n与k" << endl;
+  cout << "Please enter n and k" << endl;
   int n, k;
   cin >> n;
   cin >> k;
