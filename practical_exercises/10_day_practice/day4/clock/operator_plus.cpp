@@ -1,6 +1,8 @@
-/* 重载++的时钟.cpp */
+/* Overload ++ Clock.cpp */
 /*
-设计一个时钟类，能够记录时、分、秒，重载它的++运算符，每执行一次++运算，加时1秒，但要使计时过程能够自动进位。
+Design a clock class that can record hours, minutes, and seconds.
+Overload its ++ operator. Each time ++ is executed, add 1 second,
+but the time process should automatically carry over.
 */
 #include <iostream>
 using namespace std;
@@ -14,7 +16,7 @@ public:
   Time operator++();
   Time operator++(int);
   void showTime() {
-    cout << "当前时间为：" << hour << ":" << minute << ":" << second << endl;
+    cout << "Current time: " << hour << ":" << minute << ":" << second << endl;
   }
 
 private:
@@ -50,3 +52,4 @@ int main(int argc, char const *argv[]) {
   
   return 0;
 }
+
