@@ -1,9 +1,9 @@
-/* 静态成员函数1.cpp */
+/* Static Member Function 1.cpp */
 /*
-知识点：
-静态成员函数
-类外代码可以使用类名和作用域操作符来调用静态成员函数。
-静态成员函数只能引用属于该类的静态数据成员或静态成员函数。
+Knowledge points:
+Static member function
+Class code can call static member functions using the class name and scope resolution operator.
+Static member functions can only access static data members or static member functions of the class.
 */
 #include <iostream>
 using namespace std;
@@ -25,3 +25,4 @@ int main() {
   
   return 0;
 }
+
