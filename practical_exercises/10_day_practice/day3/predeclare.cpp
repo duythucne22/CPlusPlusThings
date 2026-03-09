@@ -1,31 +1,32 @@
-/* 类前向声明.cpp */
+/* Class Forward Declaration.cpp */
 /*
-使用前向引用声明虽然可以解决一些问题，但它并不是万能的。需要注意的是，
-尽管使用了前向引用声明，但是在提供一个完整的类声明之前，不能声明该类的对象，
-也不能在内联成员函数中使用该类的对象。请看下面的程序段：
+Although using forward reference declarations can solve some problems, it is not a panacea.
+It should be noted that although a forward reference declaration is used, before providing a complete class declaration,
+you cannot declare objects of that class, nor can you use objects of that class in inline member functions.
+Please see the following code:
 */
 
-//第一种
+// First method
 #include <iostream>
-class Fred; //前向引用声明
+class Fred; // Forward reference declaration
 class Barney {
-  Fred x; //错误：类Fred的声明尚不完善
+  Fred x; // Error: Class Fred's declaration is not yet complete
 };
 class Fred {
   Barney y;
 };
 
-//第二种
-class Fred; //前向引用声明
+// Second method
+class Fred; // Forward reference declaration
 
 class Barney {
 public:
   void method() {
-    x->yabbaDabbaDo(); //错误：Fred类的对象在定义之前被使用
+    x->yabbaDabbaDo(); // Error: Fred class object used before definition
   }
 
 private:
-  Fred *x; //正确，经过前向引用声明，可以声明Fred类的对象指针
+  Fred *x; // Correct, after forward reference declaration, you can declare pointer to Fred class
 };
 
 class Fred {
@@ -37,5 +38,7 @@ private:
 };
 
 /*
-总结：当使用前向引用声明时，只能使用被声明的符号，而不能涉及类的任何细节。
+Summary: When using forward reference declarations, you can only use the declared symbols,
+and cannot involve any details of the class.
 */
+
